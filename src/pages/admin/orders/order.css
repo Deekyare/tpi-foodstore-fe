@@ -1,0 +1,141 @@
+/* Layout panel derecho */
+.panel-derecho {
+  flex: 1;
+  padding: 2.5rem;
+}
+
+.panel-derecho h1 {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--color-texto);
+  margin-bottom: 2rem;
+}
+
+/* Contenedor de pedidos */
+#contenedor__pedidos {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 columnas de pedidos */
+  gap: 20px;
+  width: 100%;
+}
+
+@media (max-width: 1024px) {
+  #contenedor__pedidos {
+    grid-template-columns: 1fr; /* 1 columna en pantallas chicas */
+  }
+}
+
+/* Tarjeta del pedido (reutilizando .product-card pero adaptado) */
+.product-card {
+  display: flex;
+  background-color: var(--color-blanco);
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  flex-direction: column;
+  border: 1px solid var(--color-borde);
+  gap: 15px;
+}
+
+.pedido-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  border-bottom: 1px solid var(--color-borde);
+  padding-bottom: 10px;
+}
+
+.pedido-body {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.pedido-body p {
+  font-size: 0.95rem;
+  color: var(--color-texto);
+  margin: 0;
+}
+
+.contenedor-total {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--color-borde);
+  padding-top: 10px;
+  margin-top: 5px;
+}
+
+.orden-total {
+  font-weight: bold;
+  color: var(--color-primario);
+  font-size: 1.1rem;
+}
+
+/* Estados de los pedidos */
+.orden-estado {
+  color: white;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  display: inline-block;
+}
+
+.orden-estado--pendiente {
+  background-color: #cbd5e1;
+  color: #334155;
+}
+
+.orden-estado--proceso {
+  background-color: #2ecc71; 
+  color: white;
+}
+
+.orden-estado--completado {
+  background-color: #ff9f43; 
+  color: white;
+}
+
+.orden-estado--cancelado {
+  background-color: #e74c3c; 
+  color: white;
+}
+
+/* Acciones de pedido y select de estado */
+.pedido-acciones {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px dashed var(--color-borde);
+  padding-top: 12px;
+  margin-top: 5px;
+  width: 100%;
+}
+
+.label-estado {
+  font-size: 0.9rem;
+  color: var(--color-texto);
+}
+
+.select-estado {
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--color-borde);
+  background-color: var(--color-blanco);
+  font-family: inherit;
+  font-size: 0.85rem;
+  color: var(--color-texto);
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+  outline: none;
+}
+
+.select-estado:focus {
+  border-color: var(--color-primario);
+}
+

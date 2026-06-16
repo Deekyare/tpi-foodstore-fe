@@ -1,0 +1,280 @@
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap");
+
+body {
+  font-family: "Outfit", sans-serif;
+  background-color: #f8fafc;
+}
+
+/* --- ESTILOS HEADER Y BOTONES --- */
+
+.btnCerrarSesion {
+  background-color: #e2e8f0;
+  color: #334155;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/* --- CONFIGURACIÓN DEL CONTENEDOR PRINCIPAL Y SIDEBAR --- */
+.main-container {
+  display: flex;
+  flex: 1;
+  gap: 48px;
+  width: 90%;
+  max-width: 1400px;
+  margin: 2rem auto;
+  padding: 0;
+  align-items: flex-start;
+}
+
+.sidebar-admin {
+  width: 240px;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+
+.sidebar-admin__seccion {
+  padding-left: 16px;
+  margin-bottom: 1.5rem;
+}
+
+.sidebar-admin__tit {
+  font-size: 1.1rem;
+  color: var(--color-primario);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.sidebar-admin__subtit {
+  font-size: 0.85rem;
+  color: var(--color-gris);
+  margin-top: 2px;
+}
+
+.sidebar__list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sidebar__link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  color: #475569;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border-radius: 0 8px 8px 0;
+  transition: all 0.2s ease-in-out;
+  border-left: 4px solid transparent;
+}
+
+.sidebar__link:hover {
+  background-color: #f1f5f9;
+  color: var(--color-primario);
+}
+
+.sidebar-admin__linea {
+  border-top: 1px solid var(--color-borde);
+  margin: 1.5rem 0;
+}
+
+/* --- CONTENEDOR DERECHO  --- */
+.dashboard-contenido {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.dashboard-contenido__titulo {
+  font-size: 1.8rem;
+  color: #0f172a;
+  font-weight: 800;
+  margin-bottom: 5px;
+}
+
+/* --- GRID DE LAS 4 TARJETAS PRINCIPALES --- */
+.dashboard-grid-modulos {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  width: 100%;
+}
+
+.card-modulo {
+  padding: 24px 28px;
+  border-radius: 16px;
+  color: var(--color-blanco);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 180px;
+  box-shadow:
+    0 10px 15px -3px rgba(0, 0, 0, 0.05),
+    0 4px 6px -4px rgba(0, 0, 0, 0.05);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.card-modulo:hover {
+  transform: translateY(-4px);
+  box-shadow:
+    0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 8px 10px -6px rgba(0, 0, 0, 0.1);
+}
+
+/* Degradados de fondo  */
+.card-modulo--violeta {
+  background: linear-gradient(135deg, #c1c5e4, #4f46e5);
+}
+.card-modulo--rosa {
+  background: linear-gradient(135deg, #fbd6e9, #e53584);
+}
+.card-modulo--celeste {
+  background: linear-gradient(135deg, #38bdf8, #1930c6);
+}
+.card-modulo--verde {
+  background: linear-gradient(135deg, #5cdcad, #37de04be);
+}
+
+.card-modulo__header {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.card-modulo__contador {
+  font-size: 3rem;
+  font-weight: 800;
+  line-height: 1;
+  margin-bottom: 12px;
+}
+
+.card-modulo__btn {
+  align-self: flex-start;
+  padding: 8px 20px;
+  background-color: var(--color-blanco);
+  border: none;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.08);
+  transition: all 0.2s ease;
+}
+
+.card-modulo__btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.12);
+}
+
+/* Colores de botones de los  modulo */
+.card-modulo--violeta .card-modulo__btn {
+  color: #4f46e5;
+}
+.card-modulo--rosa .card-modulo__btn {
+  color: #db2777;
+}
+.card-modulo--celeste .card-modulo__btn {
+  color: #0284c7;
+}
+
+/* --- SECCIÓN RESUMEN  --- */
+.contenedor-panel-resumen {
+  background-color: var(--color-blanco);
+  padding: 2.5rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  border: 1px solid #e2e8f0;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.seccion-resumen__titulo {
+  font-size: 1.35rem;
+  color: var(--color-primario);
+  font-weight: 800;
+  border-bottom: none;
+  padding-bottom: 0;
+  margin-bottom: 5px;
+}
+
+.dashboard-grid-resumen {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  width: 100%;
+}
+
+/* Tarjetitas chicas grises interiores */
+.resumen-item {
+  background-color: #f8fafc;
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: transform 0.2s ease;
+}
+
+.resumen-item:hover {
+  transform: translateY(-2px);
+}
+
+/* Bordes izquierdos de colores de la captura */
+.resumen-item--verde {
+  border-left: 4px solid #10b981;
+}
+.resumen-item--amarillo {
+  border-left: 4px solid #f59e0b;
+}
+.resumen-item--azul {
+  border-left: 4px solid #3b82f6;
+}
+.resumen-item--esmeralda {
+  border-left: 4px solid #06b6d4;
+}
+
+.resumen-item__title {
+  font-size: 0.85rem;
+  color: #64748b;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.resumen-item__valor {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+/* Colores de los numeros en resumen  */
+.resumen-item--verde .resumen-item__valor {
+  color: #10b981;
+}
+.resumen-item--amarillo .resumen-item__valor {
+  color: #d97706;
+}
+.resumen-item--azul .resumen-item__valor {
+  color: #2563eb;
+}
+.resumen-item--esmeralda .resumen-item__valor {
+  color: #0891b2;
+}

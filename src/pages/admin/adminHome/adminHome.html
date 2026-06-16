@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Food Store - Mis Pedidos</title>
+    <link rel="stylesheet" href="../../../style.css" />
+    <link rel="stylesheet" href="./adminHome.css" />
+  </head>
+  <body>
+    <header class="header">
+      <a href="../../store/home/home.html" class="logo__title">
+        <img
+          src="/assets/food-logo.png"
+          alt="Food Store logo"
+          class="logo__img"
+        />
+        <span class="logo__nombre">Food Store</span>
+      </a>
+      <nav class="nav">
+        <ul class="nav__list">
+          <li>
+            <a href="../../store/home/home.html" class="nav__link">Tienda</a>
+          </li>
+          <li><a href="#" class="nav__link">Panel Admin</a></li>
+          <li><a href="#" class="nav__link">Admin Sistema</a></li>
+          <li>
+            <button class="btnCerrarSesion">Cerrar Sesión</button>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="main-container">
+      <aside class="sidebar-admin">
+        <div class="sidebar-admin__seccion">
+          <h2 class="sidebar-admin__tit">Administración</h2>
+          <span class="sidebar-admin__subtit">Panel de control</span>
+        </div>
+
+        <ul class="sidebar__list">
+          <li>
+            <a href="#" class="sidebar__link">&#128202; Dashboard</a>
+          </li>
+          <li>
+            <a href="../categories/adminCategoria.html" class="sidebar__link"
+              >&#128203; Categorías</a
+            >
+          </li>
+          <li>
+            <a href="../products/products.html" class="sidebar__link"
+              >&#127828; Productos</a
+            >
+          </li>
+          <li>
+            <a href="../orders/orders.html" class="sidebar__link"
+              >&#128230; Pedidos</a
+            >
+          </li>
+        </ul>
+
+        <div class="sidebar-admin__linea"></div>
+
+        <ul class="sidebar__list">
+          <li>
+            <a href="../../store/home/home.html" class="sidebar__link"
+              >&#127978; Ver Tienda</a
+            >
+          </li>
+        </ul>
+      </aside>
+
+      <div class="dashboard-contenido">
+        <h1 class="dashboard-contenido__titulo">Panel de Administración</h1>
+        <!-- Seccion de modulos -->
+        <section class="dashboard-grid-modulos">
+          <!-- modulo violeta -->
+          <div class="card-modulo card-modulo--violeta">
+            <div class="card-modulo__header">
+              <span>&#128203; Categorías</span>
+            </div>
+            <div id="cant-categorias" class="card-modulo__contador">-</div>
+            <button id="btn-gestion-categorias" class="card-modulo__btn">
+              Gestionar
+            </button>
+          </div>
+          <!-- modulo rosa -->
+          <div class="card-modulo card-modulo--rosa">
+            <div class="card-modulo__header">
+              <span>&#127828; Productos</span>
+            </div>
+
+            <div id="cant-productos" class="card-modulo__contador">-</div>
+            <button id="btn-gestion-productos" class="card-modulo__btn">
+              Gestionar
+            </button>
+          </div>
+          <!-- modulo celeste -->
+          <div class="card-modulo card-modulo--celeste">
+            <div class="card-modulo__header">
+              <span>&#128230; Pedidos</span>
+            </div>
+            <div id="cant-pedidos" class="card-modulo__contador">-</div>
+            <button id="btn-gestion-pedidos" class="card-modulo__btn">
+              Gestionar
+            </button>
+          </div>
+          <!-- modulo verde -->
+          <div class="card-modulo card-modulo--verde">
+            <div class="card-modulo__header">
+              <span>&#9989; Disponibles</span>
+            </div>
+            <div id="cant-disponibles" class="card-modulo__contador">-</div>
+            <span class="card-modulo__subtxt">Productos activos</span>
+          </div>
+        </section>
+        <!-- Seccion resumen  -->
+        <section class="contenedor-panel-resumen seccion-resumen">
+          <h2 class="seccion-resumen__titulo">&#128202; Resumen Rápido</h2>
+
+          <div class="dashboard-grid-resumen">
+            <!-- modulo ingreso total -->
+            <div class="resumen-item resumen-item--verde">
+              <span class="resumen-item__title"
+                >&#128293; Ingresos Totales</span
+              >
+              <div id="resumen-ingresos" class="resumen-item__valor">$0.00</div>
+            </div>
+
+            <!-- modulo pedido pendiente -->
+            <div class="resumen-item resumen-item--amarillo">
+              <span class="resumen-item__title"
+                >&#9250; Pedidos Pendientes</span
+              >
+              <div id="resumen-pendientes" class="resumen-item__valor">-</div>
+            </div>
+            <!-- modulo pedido en preparacion -->
+            <div class="resumen-item resumen-item--azul">
+              <span class="resumen-item__title">&#127809; En Preparación</span>
+              <div id="resumen-preparacion" class="resumen-item__valor">-</div>
+            </div>
+
+            <!-- modulo pedido completado -->
+            <div class="resumen-item resumen-item--esmeralda">
+              <span class="resumen-item__title">&#9989; Completados</span>
+              <div id="resumen-completados" class="resumen-item__valor">-</div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <p>&copy; 2026 TPI - Giardini Silvia</p>
+    </footer>
+    <script type="module" src="./admin.ts"></script>
+  </body>
+</html>

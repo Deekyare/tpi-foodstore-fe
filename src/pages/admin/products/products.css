@@ -1,0 +1,131 @@
+/* Contenedor de la tabla */
+.seccion-derecha__titulo {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--color-texto);
+}
+
+.tabla-contenedor {
+  margin-top: 2rem;
+  width: 100%;
+  border-radius: 12px;
+  background-color: var(--color-blanco);
+  padding: 1.5rem;
+  border: 1px solid var(--color-borde);
+  /* overflow-x: auto; Scroll horizontal si la tabla se desborda en móviles */
+}
+
+/* Estructura general de la tabla */
+.tabla-admin {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.tabla-encabezado {
+  background-color: var(--color-primario);
+}
+
+.tabla-admin th {
+  padding: 1rem;
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  /* color del texto de las celdas del encabezado */
+  color: var(--color-blanco);
+  border-bottom: 2px solid var(--color-primario);
+}
+
+/* Celdas del cuerpo */
+.tabla-admin td {
+  padding: 1rem;
+  font-size: 0.95rem;
+  color: var(--color-texto);
+  border-bottom: 1px solid var(--color-borde);
+}
+
+/* Alternancia de filas (cebreado) */
+.tabla-admin tbody tr:nth-child(even) {
+  background-color: #fafafa;
+}
+
+/* Resaltar el ID de la categoría */
+.tabla-admin td strong {
+  color: var(--color-primario);
+}
+
+.seccion-derecha {
+  flex: 1;
+  padding: 2.5rem;
+}
+/* --- BOTONES --- */
+.campo-btns {
+  white-space: nowrap; /* Para que los botones se salten de línea */
+}
+
+.columna-descripcion {
+  width: 30%; /* Ocupa el 30% del ancho de la tabla */
+  min-width: 250px;
+}
+.btn-editar,
+.btn-eliminar {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 0.85rem;
+  cursor: pointer;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  transition: background-color 0.2s ease;
+}
+
+.btn-editar {
+  background-color: var(--color-primario);
+  color: var(--color-blanco);
+  margin-right: 10px;
+}
+
+.btn-editar:hover {
+  background-color: rgb(255, 120, 80);
+}
+
+.btn-eliminar {
+  background-color: #e2e8f0;
+  color: var(--color-texto);
+}
+
+.btn-eliminar:hover {
+  background-color: #cbd5e1;
+}
+
+/* Thumbnail de producto en la tabla */
+.tabla-thumbnail {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid var(--color-borde);
+  display: block;
+}
+
+/* Etiquetas de estado */
+.etiqueta-estado {
+  display: inline-block;
+  padding: 4px 10px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  border-radius: 6px;
+}
+
+.estado--activo {
+  background-color: #e6fffa;
+  color: #00c98e;
+}
+
+.estado--inactivo {
+  background-color: #fff5f5;
+  color: #e53e3e;
+}

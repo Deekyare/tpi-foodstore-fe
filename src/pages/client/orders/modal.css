@@ -1,0 +1,147 @@
+/* --- ESTILOS PARA EL MODAL --- */
+.modal-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro transparente */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Tarjeta contenedora blanca del modal */
+.modal-pedido-card {
+  background-color: var(--color-blanco);
+  width: 100%;
+  max-width: 500px;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.modal-pedido-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid var(--color-hover);
+  padding-bottom: 10px;
+}
+
+.modal-pedido-card__header h2 {
+  font-size: 1.3rem;
+  color: var(--color-primario);
+}
+
+.modal-close-btn {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  color: var(--color-gris);
+}
+
+.modal-close-btn:hover {
+  color: var(--color-primario);
+}
+
+/* 1. Estilos para el Estado e Icono */
+.modal-pedido-card__estado {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 15px;
+  border-radius: 6px;
+  font-weight: bold;
+}
+
+.estado--entregado {
+  background-color: #e8f8f5;
+  color: #2ecc71;
+}
+
+.estado--pendiente {
+  background-color: var(--color-hover);
+  color: var(--color-focus);
+}
+
+/* Bloques de secciones internas */
+.modal-pedido-card__seccion h3 {
+  font-size: 1rem;
+  color: var(--color-texto);
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid var(--color-borde);
+  padding-bottom: 4px;
+}
+
+.modal-pedido-card__seccion p {
+  font-size: 0.95rem;
+  color: #555;
+  line-height: 1.4;
+}
+
+/* 3. Lista de productos del pedido */
+.modal-pedido__productos-lista {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.modal-pedido__productos-lista li {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.95rem;
+  color: var(--color-texto);
+}
+
+/* 4. Desglose de costos */
+.modal-pedido-card__desglose {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background-color: var(--color-fondo);
+  padding: 12px;
+  border-radius: 6px;
+}
+
+.desglose-linea {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  color: var(--color-texto);
+}
+
+.desglose-linea--total {
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: var(--color-primario);
+  border-top: 1px solid var(--color-borde);
+  padding-top: 6px;
+  margin-top: 4px;
+}
+
+/* 5. Mensaje dinámico de abajo */
+.modal-pedido-card__mensaje-estado {
+  text-align: center;
+  background-color: #f9f9f9;
+  padding: 10px;
+  border-radius: 6px;
+  border-left: 4px solid var(--color-primario);
+}
+
+.mensaje-alerta {
+  font-size: 0.85rem;
+  color: var(--color-gris);
+  font-style: italic;
+}
+
+/* Clase de utilidad para esconder el modal desde TS */
+.hidden {
+  display: none;
+}

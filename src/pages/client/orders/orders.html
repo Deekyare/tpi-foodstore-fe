@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Food Store - Mis Pedidos</title>
+    <link rel="stylesheet" href="../../../style.css" />
+    <link rel="stylesheet" href="./orders.css" />
+    <link rel="stylesheet" href="../../store/cart/cartStyles.css" />
+    <link rel="stylesheet" href="./modal.css" />
+  </head>
+  <body>
+    <header class="header">
+      <a href="../../store/home/home.html" class="logo__title">
+        <img
+          src="/assets/food-logo.png"
+          alt="Food Store logo"
+          class="logo__img"
+        />
+        <span class="logo__nombre">Food Store</span>
+      </a>
+      <nav class="nav">
+        <ul class="nav__list">
+          <li><a href="#" class="nav__link">Mis Pedidos</a></li>
+          <li>
+            <a
+              href="../../store/cart/cart.html"
+              class="nav__link"
+              style="display: flex; align-items: center; gap: 5px"
+            >
+              🛒 Carrito
+              <span class="cartCounter" id="cart-counter">0</span>
+            </a>
+          </li>
+          <li>
+            <span class="nav__link" style="color: var(--color-gris)"
+              >Juan Pérez</span
+            >
+          </li>
+          <li>
+            <button class="btnCerrarSesion">Cerrar Sesión</button>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <main class="main-container">
+      <section class="tarjeta-panel">
+        <h1>Mis Pedidos</h1>
+        <!-- Desde TS se inyectan los pedidos aquí adentro -->
+        <div id="contenedor__pedidos"></div>
+      </section>
+    </main>
+    <!-- MODAL -->
+    <div id="modal-pedido" class="modal-container hidden">
+      <div class="modal-pedido-card">
+        <div class="modal-pedido-card__header">
+          <h2 id="modal-pedido-titulo">Detalle del Pedido</h2>
+          <button type="button" id="btn-cerrar-modal" class="modal-close-btn">
+            &times;
+          </button>
+        </div>
+
+        <div id="modal-pedido-estado-container" class="modal-pedido-card__estado">
+          <span id="modal-pedido-estado-icono" class="estado-icono"></span>
+          <span id="modal-pedido-estado-texto" class="estado-texto"></span>
+        </div>
+
+        <div class="modal-pedido-card__seccion">
+          <h3>Información de Entrega</h3>
+          <p><strong>Nombre:</strong> <span id="modal-cliente-nombre"></span></p>
+          <p><strong>Dirección:</strong> <span id="modal-cliente-direccion"></span></p>
+          <p><strong>Teléfono:</strong> <span id="modal-cliente-telefono"></span></p>
+          <p><strong>Método de pago:</strong> <span id="modal-metodo-pago"></span></p>
+        </div>
+
+        <div class="modal-pedido-card__seccion">
+          <h3>Productos</h3>
+          <ul id="modal-productos-lista" class="modal-pedido__productos-lista">
+            <!-- Dinámico desde TS -->
+          </ul>
+        </div>
+
+        <div class="modal-pedido-card__seccion modal-pedido-card__desglose">
+          <div class="desglose-linea">
+            <span>Subtotal:</span>
+            <span id="modal-subtotal"></span>
+          </div>
+          <div class="desglose-linea">
+            <span>Envío:</span>
+            <span id="modal-envio"></span>
+          </div>
+          <div class="desglose-linea desglose-linea--total">
+            <span>Total:</span>
+            <span id="modal-costo-total"></span>
+          </div>
+        </div>
+
+        <div class="modal-pedido-card__mensaje-estado">
+          <p class="mensaje-alerta">
+            Gracias por comprar en Food Store.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <p>&copy; 2026 TPI - Giardini Silvia</p>
+    </footer>
+    <script type="module" src="./orders.ts"></script>
+  </body>
+</html>

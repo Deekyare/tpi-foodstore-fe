@@ -1,0 +1,126 @@
+:root {
+  --color-primario: #ff6347;
+  --color-fondo: #f0f0f0;
+  --color-texto: #333;
+  --color-blanco: #fff;
+  --color-borde: #ddd;
+  --color-focus: #ff4500;
+  --color-hover: #fcece9;
+  --color-gris: #777;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--color-fondo);
+  font-family: sans-serif, Arial, Helvetica;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+/* HEADER: logo izquierda, nav derecha   */
+
+/* ESTILOS HEADER */
+/* SECTOR NAVBAR */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 4rem;
+  background-color: var(
+    --color-blanco
+  ); /* Del PDF: Fondo blanco para las pantallas de la tienda */
+  color: var(--color-texto); /* Del PDF: Texto oscuro */
+  border-bottom: 1px solid var(--color-borde);
+}
+.nav__list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  list-style: none;
+}
+.nav__link {
+  color: var(--color-texto); /* Del PDF: Enlaces oscuros */
+  text-decoration: none;
+  font-weight: 600;
+}
+
+/* SECTOR LOGO */
+.logo__title {
+  display: flex;
+  align-items: center;
+  gap: 12px; /* Espacio entre el logo imagen y el nombre */
+  text-decoration: none;
+}
+
+.logo__img {
+  width: 50px; /* El tamaño de logo */
+  height: auto;
+}
+
+.logo__nombre {
+  font-weight: 700;
+  color: var(
+    --color-primario
+  ); /* Del PDF: El texto del logo destaca en naranja */
+  font-size: 1.5rem;
+}
+.cartCounter {
+  gap: 5px;
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 0.7rem;
+}
+.btnCerrarSesion {
+  padding: 8px 10px;
+  cursor: pointer;
+  border-radius: 6px;
+  border: none;
+  background-color: #e2e8f0;
+  color: var(--color-texto);
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+/* FOOTER */
+.footer {
+  text-align: center;
+  padding: 2rem;
+  border-top: 1px solid var(--color-borde);
+  background-color: var(--color-blanco);
+  color: var(--color-gris);
+}
+
+/* --- COMPONENTE SELECTOR DE CANTIDAD GLOBAL --- */
+.quantity-selector {
+  display: flex;
+  align-items: center;
+  background-color: var(--color-fondo);
+  border-radius: 8px;
+  padding: 4px 12px;
+  width: max-content;
+}
+.quantity-selector button {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0 10px;
+  color: var(--color-texto);
+  font-weight: bold;
+}
+.quantity-selector button:hover {
+  color: var(--color-primario);
+}
+.quantity-selector .quantity-selector__txt {
+  margin: 0 15px;
+  font-weight: bold;
+  font-size: 1rem;
+}

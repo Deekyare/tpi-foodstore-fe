@@ -1,0 +1,78 @@
+.product-card {
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  gap: 15px;
+}
+
+.pedido-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.pedido-body {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Cuerpo a la izquierda */
+  gap: 8px;
+}
+
+.pedidos-items {
+  width: 100%;
+  list-style: none;
+  padding-left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  border-top: 1px solid var(--color-borde);
+  padding-top: 15px;
+}
+
+.pedidos-items li {
+  display: flex;
+  justify-content: space-between; /* Alinea nombre a la izquierda, precio a la derecha por item */
+  width: 100%;
+  font-size: 0.95rem;
+}
+
+.contenedor-total {
+  width: 100%;
+  display: flex;
+  justify-content: space-between; /* Precio total pegado a la izquierda */
+}
+
+.orden-total {
+  font-weight: bold;
+  color: var(--color-primario);
+  font-size: 1.1rem;
+}
+
+.orden-estado {
+  color: white;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  display: inline-block;
+}
+
+/* Modificadores de color según el estado */
+.orden-estado--pendiente {
+  background-color: #cbd5e1;
+  color: #334155;
+}
+
+.orden-estado--proceso {
+  background-color: #2ecc71; 
+}
+
+.orden-estado--completado {
+  background-color: #ff9f43; 
+}
+
+.orden-estado--cancelado {
+  background-color: #e74c3c; 
+}

@@ -1,0 +1,84 @@
+<!-- vista del carrito -->
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Food Store</title>
+    <link rel="stylesheet" href="../../../style.css" />
+    <link rel="stylesheet" href="./cartStyles.css" />
+  </head>
+  <body>
+    <header class="header">
+      <a href="./../home/home.html" class="logo__title">
+        <img
+          src="/assets/food-logo.png"
+          alt="Food Store logo"
+          class="logo__img"
+        />
+        <span class="logo__nombre">Food Store</span>
+      </a>
+      <nav class="nav">
+        <ul class="nav__list">
+          <li>
+            <a href="../../client/orders/orders.html" class="nav__link"
+              >Mis Pedidos</a
+            >
+          </li>
+          <li>
+            <a
+              href="../cart/cart.html"
+              class="nav__link"
+              style="display: flex; align-items: center; gap: 5px"
+            >
+              🛒 Carrito
+              <span class="cartCounter" id="cart-counter">0</span>
+            </a>
+          </li>
+          <li>
+            <span class="nav__link" style="color: var(--color-gris)"
+              >Juan Pérez</span
+            >
+          </li>
+          <li>
+            <button class="btnCerrarSesion">Cerrar Sesión</button>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="main-container">
+      <!-- Contenedor lista de compras -->
+      <section class="tarjeta-panel">
+        <h1>Mi Carrito</h1>
+
+        <!-- Desde TS se inyecta las productos seleccionados aquí adentro -->
+        <div id="contenedor__productos"></div>
+      </section>
+
+      <!-- Contenedor checkout -->
+      <section class="tarjeta-panel tarjeta-izq">
+        <div>
+          <h2>Resumen</h2>
+
+          <!-- Contenido propio del lado derecho -->
+          <div class="resumen">
+            <div class="resumen__total"></div>
+            <button class="btn btn--finalizar">Finalizar compra</button>
+
+            <div id="mensaje-procesando" class="mensaje-espera hidden">
+              ⏳ Su pedido está siendo procesado... por favor espere.
+            </div>
+
+            <button class="btn btn--vaciar">Vaciar carrito</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>&copy; 2026 TPI - Giardini Silvia</p>
+    </footer>
+    <script type="module" src="./cart.ts"></script>
+  </body>
+</html>

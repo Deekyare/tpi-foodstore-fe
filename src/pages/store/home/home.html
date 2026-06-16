@@ -1,0 +1,105 @@
+<!-- catalogo de productos -->
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Food Store</title>
+    <link rel="stylesheet" href="../../../style.css" />
+    <link rel="stylesheet" href="./homeStyles.css" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="header__marca">
+        <a href="#" class="logo__title">
+          <img
+            src="/assets/food-logo.png"
+            alt="Food Store logo"
+            class="logo__img"
+          />
+          <span class="logo__nombre">Food Store</span>
+        </a>
+      </div>
+      <nav class="nav">
+        <ul class="nav__list">
+          <li>
+            <a href="../../client/orders/orders.html" class="nav__link"
+              >Mis Pedidos</a
+            >
+          </li>
+          <li>
+            <a
+              href="../cart/cart.html"
+              class="nav__link"
+              style="display: flex; align-items: center; gap: 5px"
+            >
+              🛒 Carrito
+              <span class="cartCounter" id="cart-counter">0</span>
+            </a>
+          </li>
+          <li>
+            <span class="nav__link" style="color: var(--color-gris)"
+              >Juan Pérez</span
+            >
+          </li>
+          <li>
+            <button class="btnCerrarSesion">Cerrar Sesión</button>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="main-container">
+      <!-- Sector izquierdo: Contenedor categorias -->
+      <aside class="sidebar">
+        <h2 class="sidebar__title">Categorías</h2>
+        <p class="sidebar__sub">Filtra por categoría</p>
+        <ul id="lista-categorias" class="sidebar__list"></ul>
+      </aside>
+
+      <!-- Sector derecho: Contenedor PRODUCTOS y BARRA DE BÚSQUEDA -->
+      <div>
+        <!-- Barra de busqueda -->
+        <section class="search__container">
+          <input
+            type="text"
+            id="buscar"
+            class="search__input"
+            placeholder=" &#128269;   Buscar productos..."
+          />
+          <!-- Selector de ordenamiento -->
+          <select
+            name="orderBy"
+            id="orderBy"
+            aria-label="Ordenamiento de productos"
+            class="search__input orderBy"
+          >
+            <option value="default">Ordenar por...</option>
+            <option value="nomb-asc">Nombre (A-Z)</option>
+            <option value="nomb-desc">Nombre (Z-A)</option>
+            <option value="prec-asc">Precio: Menor a Mayor</option>
+            <option value="prec-desc">Precio: Mayor a Menor</option>
+          </select>
+        </section>
+         <!-- Contador de productos encontrados -->
+        <div class="categoria-contador">
+          <span class="nombre-cat-mostrada"></span>
+          <span id="contador-productos" class="contador-productos">
+          
+        </span>
+        </div>
+        
+        <!-- Contenedor de productos -->
+        <section class="products">
+          <div id="contenedor-productos" class="products__grid"></div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <p>&copy; 2026 TPI - Giardini Silvia</p>
+    </footer>
+
+    <script type="module" src="./home.ts"></script>
+  </body>
+</html>

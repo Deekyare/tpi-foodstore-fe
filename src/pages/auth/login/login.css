@@ -1,0 +1,117 @@
+/* CONTENEDOR DE LA PANTALLA: Centra la tarjeta y usa tu naranja de fondo */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: var(--color-primario);
+  padding: 20px;
+}
+
+/* LA TARJETA BLANCA FLOTANTE */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-blanco);
+  padding: 40px;
+  border-radius: 8px;
+  border: 1px solid var(--color-borde);
+  box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  max-width: 380px;
+}
+
+/* TEXTOS INTERNOS */
+.login-form__titulo {
+  color: var(--color-primario);
+  text-align: center;
+  letter-spacing: 1px;
+  font-size: 2rem;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.login-form__subtitulo {
+  color: var(--color-texto);
+  font-size: 1.1rem;
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.login-form__label {
+  color: var(--color-texto);
+  font-weight: bold;
+  font-size: 0.9rem;
+  margin-bottom: 6px;
+}
+
+/* INPUTS DE TEXTO */
+.login-form__input {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid var(--color-borde);
+  border-radius: 6px;
+  font-size: 0.95rem;
+  color: var(--color-texto);
+  margin-bottom: 18px;
+  transition: border-color 0.2s ease;
+}
+
+.login-form__input:focus {
+  outline: none;
+  border-color: var(--color-focus);
+}
+
+/* BOTÓN DE INGRESO PRINCIPAL (Sigue la estética de la captura oficial) */
+.login-form__button {
+  padding: 12px;
+  background-color: var(--color-primario);
+  color: var(--color-blanco);
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 5px;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  transition: background-color 0.2s ease;
+}
+
+.login-form__button:hover {
+  background-color: var(--color-focus);
+}
+
+/* FOOTER DEL FORMULARIO Y ENLACE */
+.login-form__footer {
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--color-texto);
+}
+
+.login-form__link {
+  color: var(--color-focus);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.login-form__link:hover {
+  text-decoration: underline;
+}
+
+/* SECCIÓN INFERIOR DE CREDENCIALES DE PRUEBA */
+.login-form__pruebas {
+  margin-top: 25px;
+  padding-top: 20px;
+  border-top: 1px dashed var(--color-borde);
+  font-size: 0.8rem;
+  color: var(--color-gris);
+  line-height: 1.6;
+}
+
+.login-form__pruebas-titulo {
+  font-weight: bold;
+  color: var(--color-texto);
+  margin-bottom: 4px;
+}

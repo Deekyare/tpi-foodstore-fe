@@ -1,0 +1,147 @@
+/* MAIN */
+.main-container {
+  display: flex;
+  flex: 1; /* Esta es la magia que empuja al footer al fondo cuando el contenido está vacío */
+  justify-content: center;
+  gap: 40px;
+  width: 80%;
+  margin: 2rem auto;
+  padding: 0;
+  align-items: flex-start;
+}
+
+/* La clase compartida para ambos lados (Izquierda y Derecha) */
+.tarjeta-panel {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  background-color: var(--color-blanco);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+  gap: 20px;
+}
+
+/* Estilo para los títulos de esos dos paneles */
+.tarjeta-panel h1,
+.tarjeta-panel h2 {
+  width: 100%;
+  font-size: 1.5rem;
+  color: var(--color-primario);
+  border-bottom: 2px solid var(--color-hover);
+  padding-bottom: 15px;
+}
+
+/* --- ESTILOS PANEL RESUMEN (DERECHO) --- */
+.resumen {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 10px;
+  text-align: center;
+  font-size: xx-large;
+}
+.tarjeta-izq--ocultar {
+  display: none;
+}
+.carrito-vacio-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.carrito-vacio-container img {
+  width: 15rem;
+  margin: 1rem;
+}
+.btn--finalizar {
+  padding: 12px;
+  margin: 0.5rem;
+  font-weight: bold;
+  border: none;
+  background-color: var(--color-primario);
+  color: var(--color-blanco);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn--finalizar:hover {
+  background-color: var(--color-focus);
+}
+
+.resumen__mensaje {
+  font-size: 0.85rem;
+  color: var(--color-gris);
+  text-align: center;
+}
+
+.btn--vaciar,
+.btn--eliminar {
+  padding: 10px;
+  margin: 0.5rem;
+  font-weight: bold;
+  border: 1px solid var(--color-primario);
+  background-color: transparent;
+  color: var(--color-primario);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn--vaciar:hover,
+.btn--eliminar:hover {
+  background-color: var(--color-hover);
+}
+.btn--finalizar:disabled {
+  background-color: var(--color-gris);
+  cursor: not-allowed;
+}
+
+.mensaje-vacio {
+  text-align: center;
+  margin: 1rem;
+}
+
+/* Estilo para cada producto que se inyecta con JS (clase .product-card) */
+.product-card {
+  display: flex; /* Cambiado a flex para facilitar la alineación interior */
+  align-items: center; /* Centra los elementos verticalmente */
+  justify-content: space-between; /* Manda el texto a la izquierda y el contador a la derecha */
+  background-color: var(--color-blanco);
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  margin: 0.5rem 0; /* Margen solo arriba y abajo para que se apilen bonito */
+  width: 100%; /* Toma todo el ancho disponible del panel izquierdo */
+}
+
+.product-card img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-right: 1rem;
+}
+
+/* * --- ESTILOS DEL CONTADOR DE PRODUCTOS --- */
+.product-card .quantity-selector {
+  margin-left: auto; /* Empuja el contador hacia la derecha en la card */
+}
+
+.mensaje-espera {
+  margin-top: 15px;
+  padding: 12px;
+  background-color: #e8f8f5;
+  color: #2ecc71;
+  border: 1px solid #2ecc71;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* Tu clase que ya usás para ocultar */
+.hidden {
+  display: none;
+}

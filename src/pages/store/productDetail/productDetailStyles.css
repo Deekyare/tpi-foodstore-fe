@@ -1,0 +1,148 @@
+/* --- CONTENEDOR PRINCIPAL --- */
+.main-producto {
+  flex: 1; /* Empuja el footer hacia abajo */
+  display: flex;
+  justify-content: center;
+  background-color: #f8f9fa; /* El fondo gris clarito de la captura */
+  padding: 3rem 2rem;
+  width: 100%;
+}
+
+/* --- CUADRÍCULA DE DOS COLUMNAS --- */
+.producto-grid {
+  display: flex;
+  flex-direction: row; /*Fuerza que estén lado a lado */
+  align-items: flex-start;
+  gap: 40px; /* Separación entre foto y texto */
+  max-width: 950px; /* Evita que se estire demasiado en pantallas gigantes */
+  width: 100%;
+}
+
+/* --- COLUMNA IMAGEN (IZQUIERDA) --- */
+.producto-imagen-caja {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end; /* Pega la imagen un poco más hacia el centro */
+}
+
+.producto-imagen-tarjeta {
+  background-color: var(--color-blanco);
+  padding: 8px;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 500px;
+}
+
+.producto-img-principal {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+/* --- COLUMNA TEXTO (DERECHA) --- */
+.producto-info-caja {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.producto-categoria {
+  font-size: 0.85rem;
+  color: var(--color-gris);
+  margin-bottom: 0.5rem;
+}
+
+.producto-titulo {
+  font-size: 2.2rem;
+  color: var(--color-texto);
+  margin: 0 0 0.8rem 0;
+}
+
+.producto-precio {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: var(--color-primario);
+  margin-bottom: 1rem;
+}
+
+.producto-stock {
+  background-color: #00c98e;
+  color: white;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  display: inline-block;
+  margin-bottom: 1.5rem;
+}
+
+.producto-descripcion {
+  font-size: 1rem;
+  color: var(--color-texto);
+  margin-bottom: 2rem;
+  line-height: 1.5;
+}
+
+.producto-cantidad-wrapper {
+  margin-bottom: 1.5rem;
+}
+
+.cantidad-label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+
+
+/* --- BOTONES --- */
+.producto-acciones {
+  display: flex;
+  gap: 15px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.btn-naranja {
+  flex: 3;
+  padding: 8px;
+  background-color: var(--color-primario);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.2s;
+}
+
+.btn-naranja:hover {
+  opacity: 0.9;
+}
+
+.btn-gris {
+  flex: 1;
+  padding: 8px;
+  background-color: #e2e8f0;
+  color: var(--color-texto);
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 6px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.2s;
+}
+
+.btn-gris:hover {
+  background-color: #cbd5e1;
+}

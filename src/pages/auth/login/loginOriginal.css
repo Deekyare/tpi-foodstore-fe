@@ -1,0 +1,92 @@
+:root {
+  --color-primario: #ff6347;
+  --color-fondo: #f0f0f0;
+  --color-texto: #333;
+  --color-blanco: #fff;
+  --color-borde: #ddd;
+  --color-focus: #ff4500;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--color-fondo);
+  font-family: sans-serif, Arial, Helvetica;
+}
+/* CONTENEDOR PRINCIPAL */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+/* FORMULARIO */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-blanco);
+  padding: 35px;
+  border-radius: 10px;
+  border: 1px solid var(--color-borde);
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* ELEMENTOS DEL FORMULARIO */
+.login-form__titulo {
+  color: var(--color-primario);
+  text-align: center;
+  letter-spacing: 2px;
+  font-size: 28px;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+.login-form__subtitulo {
+  color: var(--color-texto);
+  font-size: 18px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+.login-form__label {
+  color: var(--color-texto);
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.login-form__input {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid var(--color-borde);
+  border-radius: 5px;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+input:focus {
+  outline: none;
+  border-color: var(--color-focus);
+}
+
+.login-form__button {
+  padding: 10px;
+  border: 2px solid var(--color-borde);
+  border-radius: 5px;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.login-form__button:hover {
+  cursor: pointer;
+  color: var(--color-blanco);
+  font-weight: bold;
+  background-color: var(--color-focus);
+}
+
+.login-form__link {
+  color: var(--color-focus);
+  text-decoration: none;
+  font-weight: bold;
+}
