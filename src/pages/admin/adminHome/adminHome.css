@@ -38,12 +38,12 @@ body {
   flex-shrink: 0;
 }
 
-.sidebar-admin__seccion {
+.sidebar__seccion {
   padding-left: 16px;
   margin-bottom: 1.5rem;
 }
 
-.sidebar-admin__tit {
+.sidebar__tit {
   font-size: 1.1rem;
   color: var(--color-primario);
   font-weight: 800;
@@ -51,7 +51,7 @@ body {
   letter-spacing: 0.5px;
 }
 
-.sidebar-admin__subtit {
+.sidebar__subtit {
   font-size: 0.85rem;
   color: var(--color-gris);
   margin-top: 2px;
@@ -83,7 +83,7 @@ body {
   color: var(--color-primario);
 }
 
-.sidebar-admin__linea {
+.sidebar__linea {
   border-top: 1px solid var(--color-borde);
   margin: 1.5rem 0;
 }

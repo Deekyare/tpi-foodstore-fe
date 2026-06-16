@@ -12,17 +12,11 @@
 }
 
 /* Contenedor de pedidos */
-#contenedor__pedidos {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr); /* 2 columnas de pedidos */
+.contenedor__pedidos {
+  display: flex;
+  flex-direction: column;
   gap: 20px;
   width: 100%;
-}
-
-@media (max-width: 1024px) {
-  #contenedor__pedidos {
-    grid-template-columns: 1fr; /* 1 columna en pantallas chicas */
-  }
 }
 
 /* Tarjeta del pedido (reutilizando .product-card pero adaptado) */

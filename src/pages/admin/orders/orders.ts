@@ -51,8 +51,6 @@ async function cargarPedidos() {
       <div class="pedido-body">
         <p><strong>Cliente:</strong> ${pedido.usuarioDto.nombre} ${pedido.usuarioDto.apellido}</p>
         <p><strong>Fecha:</strong> ${pedido.fecha}</p>
-        <p><strong>Dirección:</strong> ${pedido.direccion || "Calle Falsa 123"}</p>
-        <p><strong>Teléfono:</strong> ${pedido.usuarioDto.celular || "Sin teléfono"}</p>
       </div>
       <div class="contenedor-total">
         <span> &#128092; ${totalItems} ${totalItems === 1 ? 'Producto' : 'Productos'}</span>
