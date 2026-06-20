@@ -7,7 +7,18 @@ import {
   saveProductsCatalog,
   getCategoriesCatalog,
   saveCategoriesCatalog,
+  getUSer,
 } from "../../../utils/localStorage";
+import { cerrarSesion } from "../../../utils/helpers";
+import type { Usuario } from "../../../types/usuario";
+import { checkAuhtUser } from "../../../utils/utilsLogin/auth";
+
+// Protegemos la página: solo ADMIN
+checkAuhtUser(
+  "/src/pages/auth/login/login.html",
+  "/src/pages/store/home/home.html?error=incorrect_role",
+  "ADMIN"
+);
 
 async function inicializarDashboard() {
   // Intentamos leer datos de localStorage
@@ -33,16 +44,22 @@ async function inicializarDashboard() {
   const cantCategorias = categorias.length;
   const cantProductos = productos.length;
   const cantPedidos = pedidos.length;
-  const cantDisponibles = productos.filter(p => p.disponible).length;
+  const cantDisponibles = productos.filter((p) => p.disponible).length;
 
   // Ingresos totales: suma de los totales de pedidos no cancelados
   const ingresosTotales = pedidos
-    .filter(p => p.estado !== "CANCELADO")
+    .filter((p) => p.estado !== "CANCELADO")
     .reduce((sum, p) => sum + p.total, 0);
 
-  const pedidosPendientes = pedidos.filter(p => p.estado === "PENDIENTE").length;
-  const pedidosEnPreparacion = pedidos.filter(p => p.estado === "EN_PREPARACION").length;
-  const pedidosCompletados = pedidos.filter(p => p.estado === "ENTREGADO").length;
+  const pedidosPendientes = pedidos.filter(
+    (p) => p.estado === "PENDIENTE",
+  ).length;
+  const pedidosEnPreparacion = pedidos.filter(
+    (p) => p.estado === "EN_PREPARACION",
+  ).length;
+  const pedidosCompletados = pedidos.filter(
+    (p) => p.estado === "ENTREGADO",
+  ).length;
 
   // Insertar en el DOM
   const elemCategorias = document.getElementById("cant-categorias");
@@ -62,21 +79,39 @@ async function inicializarDashboard() {
 
   if (elemIngresos) elemIngresos.textContent = `$${ingresosTotales.toFixed(2)}`;
   if (elemPendientes) elemPendientes.textContent = pedidosPendientes.toString();
-  if (elemPreparacion) elemPreparacion.textContent = pedidosEnPreparacion.toString();
-  if (elemCompletados) elemCompletados.textContent = pedidosCompletados.toString();
+  if (elemPreparacion)
+    elemPreparacion.textContent = pedidosEnPreparacion.toString();
+  if (elemCompletados)
+    elemCompletados.textContent = pedidosCompletados.toString();
+}
+const userName = document.querySelector(".user-name") as HTMLSpanElement;
+const userString = getUSer();
+if (userString && userName) {
+  const user = JSON.parse(userString) as Usuario;
+  userName.textContent = `${user.nombre} ${user.apellido}`;
 }
 
 // A traves de cada btn redireccionamos al usuario
-const btnCategorias = document.getElementById("btn-gestion-categorias") as HTMLButtonElement;
-const btnProductos = document.getElementById("btn-gestion-productos") as HTMLButtonElement;
-const btnPedidos = document.getElementById("btn-gestion-pedidos") as HTMLButtonElement;
+const btnCategorias = document.getElementById(
+  "btn-gestion-categorias",
+) as HTMLButtonElement;
+const btnProductos = document.getElementById(
+  "btn-gestion-productos",
+) as HTMLButtonElement;
+const btnPedidos = document.getElementById(
+  "btn-gestion-pedidos",
+) as HTMLButtonElement;
 
 if (btnCategorias) {
-  btnCategorias.addEventListener("click", () => navigate("../categories/adminCategoria.html"));
+  btnCategorias.addEventListener("click", () =>
+    navigate("../categories/adminCategoria.html"),
+  );
 }
 
 if (btnProductos) {
-  btnProductos.addEventListener("click", () => navigate("../products/products.html"));
+  btnProductos.addEventListener("click", () =>
+    navigate("../products/products.html"),
+  );
 }
 
 if (btnPedidos) {
@@ -84,3 +119,4 @@ if (btnPedidos) {
 }
 
 inicializarDashboard();
+cerrarSesion();

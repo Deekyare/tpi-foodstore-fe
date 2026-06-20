@@ -48,6 +48,9 @@ body {
   color: var(--color-texto); /* Del PDF: Enlaces oscuros */
   text-decoration: none;
   font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 5px
 }
 
 /* SECTOR LOGO */
@@ -69,6 +72,9 @@ body {
     --color-primario
   ); /* Del PDF: El texto del logo destaca en naranja */
   font-size: 1.5rem;
+}
+.display{
+  display: none;
 }
 .cartCounter {
   gap: 5px;

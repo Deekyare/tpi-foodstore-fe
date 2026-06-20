@@ -1,7 +1,7 @@
 /* MAIN */
 .main-container {
   display: flex;
-  flex: 1; /* Esta es la magia que empuja al footer al fondo cuando el contenido está vacío */
+  flex: 1; /* Esto empuja al footer al fondo cuando el contenido está vacío */
   justify-content: center;
   gap: 40px;
   width: 80%;
@@ -35,14 +35,17 @@
 /* --- ESTILOS PANEL RESUMEN (DERECHO) --- */
 .resumen {
   display: flex;
+  font-size: 1.1rem;
   flex-direction: column;
   gap: 15px;
-  margin-top: 10px;
-  text-align: center;
-  font-size: xx-large;
+  margin-top: 15px;
 }
 .tarjeta-izq--ocultar {
   display: none;
+}
+.detalle-resumen {
+  display: flex;
+  justify-content: space-between;
 }
 .carrito-vacio-container {
   display: flex;
@@ -74,6 +77,15 @@
   font-size: 0.85rem;
   color: var(--color-gris);
   text-align: center;
+}
+.desglose-linea {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  font-size: 1rem;
+  border-top: 1px solid var(--color-borde);
+  padding-top: 20px;
+  color: var(--color-primario);
 }
 
 .btn--vaciar,
@@ -123,6 +135,9 @@
   border-radius: 50%;
   margin-right: 1rem;
 }
+.detalle-renglon {
+  padding: 0.2rem;
+}
 
 /* * --- ESTILOS DEL CONTADOR DE PRODUCTOS --- */
 .product-card .quantity-selector {
@@ -141,7 +156,6 @@
   text-align: center;
 }
 
-/* Tu clase que ya usás para ocultar */
 .hidden {
   display: none;
 }

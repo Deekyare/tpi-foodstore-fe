@@ -1,21 +1,32 @@
 import { getCategories } from "../../../data/data"; // Importamos la función fetch del JSON
-import { getCategoriesCatalog, saveCategoriesCatalog } from "../../../utils/localStorage";
+import type { Usuario } from "../../../types/usuario";
+import type { Categoria } from "../../../types/categoria";
+import { cerrarSesion } from "../../../utils/helpers";
+import { getCategoriesCatalog, getUSer, saveCategoriesCatalog } from "../../../utils/localStorage";
+import { checkAuhtUser } from "../../../utils/utilsLogin/auth";
+
+// Protegemos la página: solo ADMIN
+checkAuhtUser(
+  "/src/pages/auth/login/login.html",
+  "/src/pages/store/home/home.html?error=incorrect_role",
+  "ADMIN"
+);
+
+const userName = document.querySelector(".user-name") as HTMLSpanElement;
+const userString = getUSer();
+if (userString && userName) {
+  const user = JSON.parse(userString) as Usuario;
+  userName.textContent = `${user.nombre} ${user.apellido}`;
+}
 
 // Seleccionamos el contenedor
 const contenedorLista = document.getElementById(
   "contenedor-lista-categorias",
 ) as HTMLDivElement;
 
-async function cargarCategorias() {
-  // Obtenemos las categorías de localStorage usando el helper
-  let categorias = getCategoriesCatalog();
+let categorias: Categoria[] = [];
 
-  // Si no hay categorías en localStorage, las traemos del JSON y las guardamos
-  if (categorias.length === 0) {
-    categorias = await getCategories();
-    saveCategoriesCatalog(categorias);
-  }
-
+function cargarCategorias() {
   if (!contenedorLista) return;
 
   // Limpiamos el contenedor
@@ -37,5 +48,14 @@ async function cargarCategorias() {
   });
 }
 
-// Ejecutamos la carga inicial
-cargarCategorias();
+async function inicializarApp() {
+  categorias = getCategoriesCatalog();
+  if (categorias.length === 0) {
+    categorias = await getCategories();
+    saveCategoriesCatalog(categorias);
+  }
+  cargarCategorias();
+}
+
+inicializarApp();
+cerrarSesion();

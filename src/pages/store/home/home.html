@@ -23,24 +23,25 @@
       <nav class="nav">
         <ul class="nav__list">
           <li>
-            <a href="../../client/orders/orders.html" class="nav__link"
+            <a href="../../client/orders/orders.html" class="nav__link pedidos-nav"
               >Mis Pedidos</a
             >
           </li>
           <li>
-            <a
-              href="../cart/cart.html"
-              class="nav__link"
-              style="display: flex; align-items: center; gap: 5px"
-            >
+            <a href="../cart/cart.html" class="nav__link carrito-nav">
               🛒 Carrito
               <span class="cartCounter" id="cart-counter">0</span>
             </a>
           </li>
           <li>
-            <span class="nav__link" style="color: var(--color-gris)"
-              >Juan Pérez</span
-            >
+            <a href="../../admin/adminHome/adminHome.html" class="nav__link dashboard-nav">
+              &#128202; Dashboard
+            </a>
+          </li>
+          <li>
+            <span class="nav__link user-name" style="color: var(--color-gris)">
+              <!-- inyectar nombre x ts -->
+            </span>
           </li>
           <li>
             <button class="btnCerrarSesion">Cerrar Sesión</button>
@@ -81,14 +82,12 @@
             <option value="prec-desc">Precio: Mayor a Menor</option>
           </select>
         </section>
-         <!-- Contador de productos encontrados -->
+        <!-- Contador de productos encontrados -->
         <div class="categoria-contador">
           <span class="nombre-cat-mostrada"></span>
-          <span id="contador-productos" class="contador-productos">
-          
-        </span>
+          <span id="contador-productos" class="contador-productos"> </span>
         </div>
-        
+
         <!-- Contenedor de productos -->
         <section class="products">
           <div id="contenedor-productos" class="products__grid"></div>

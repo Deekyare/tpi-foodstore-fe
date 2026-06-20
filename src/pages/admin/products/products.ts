@@ -1,21 +1,36 @@
 import { getProducts } from "../../../data/data"; // Importamos la función fetch del JSON
-import { getProductsCatalog, saveProductsCatalog } from "../../../utils/localStorage";
+import type { Usuario } from "../../../types/usuario";
+import type { Product } from "../../../types/product";
+import { cerrarSesion } from "../../../utils/helpers";
+import {
+  getProductsCatalog,
+  getUSer,
+  saveProductsCatalog,
+} from "../../../utils/localStorage";
+import { checkAuhtUser } from "../../../utils/utilsLogin/auth";
+
+// Protegemos la página: solo ADMIN
+checkAuhtUser(
+  "/src/pages/auth/login/login.html",
+  "/src/pages/store/home/home.html?error=incorrect_role",
+  "ADMIN"
+);
+
+const userName = document.querySelector(".user-name") as HTMLSpanElement;
+const userString = getUSer();
+if (userString && userName) {
+  const user = JSON.parse(userString) as Usuario;
+  userName.textContent = `${user.nombre} ${user.apellido}`;
+}
 
 // Seleccionamos el contenedor
 const contenedorLista = document.getElementById(
   "contenedor-lista-categorias",
 ) as HTMLDivElement;
 
-async function cargarProductos() {
-  // Obtenemos los productos de localStorage usando el helper
-  let productos = getProductsCatalog();
+let productos: Product[] = [];
 
-  // Si no hay productos en localStorage, traemos los del JSON y los guardamos
-  if (productos.length === 0) {
-    productos = await getProducts();
-    saveProductsCatalog(productos);
-  }
-
+function cargarProductos() {
   if (!contenedorLista) return;
 
   // Limpiamos el contenedor
@@ -24,10 +39,12 @@ async function cargarProductos() {
   // Recorremos e inyectamos los productos
   productos.forEach((producto) => {
     const fila = document.createElement("tr");
-    
+
     // Mostramos el estado como Activo/Inactivo
     const textoEstado = producto.disponible ? "Activo" : "Inactivo";
-    const claseEstado = producto.disponible ? "estado--activo" : "estado--inactivo";
+    const claseEstado = producto.disponible
+      ? "estado--activo"
+      : "estado--inactivo";
 
     fila.innerHTML = `
     <td><strong>#${producto.id}</strong></td>
@@ -47,5 +64,15 @@ async function cargarProductos() {
   });
 }
 
-// Ejecutamos la carga inicial
-cargarProductos();
+async function inicializarApp() {
+  productos = getProductsCatalog();
+  if (productos.length === 0) {
+    productos = await getProducts();
+    saveProductsCatalog(productos);
+  }
+  cargarProductos();
+}
+
+inicializarApp();
+cerrarSesion();
+

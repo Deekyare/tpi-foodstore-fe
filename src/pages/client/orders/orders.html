@@ -26,15 +26,16 @@
             <a
               href="../../store/cart/cart.html"
               class="nav__link"
-              style="display: flex; align-items: center; gap: 5px"
             >
               🛒 Carrito
               <span class="cartCounter" id="cart-counter">0</span>
             </a>
           </li>
           <li>
-            <span class="nav__link" style="color: var(--color-gris)"
-              >Juan Pérez</span
+            <span class="nav__link user-name" style="color: var(--color-gris)"
+              >
+              <!-- inyectamos el nombre de ts -->
+              </span
             >
           </li>
           <li>
@@ -55,22 +56,33 @@
       <div class="modal-pedido-card">
         <div class="modal-pedido-card__header">
           <h2 id="modal-pedido-titulo">Detalle del Pedido</h2>
-          <button type="button" id="btn-cerrar-modal" class="modal-close-btn">
+          <button type="button" id="btn-cerrar-modal" class="modal-cerrar-btn">
             &times;
           </button>
         </div>
 
-        <div id="modal-pedido-estado-container" class="modal-pedido-card__estado">
+        <div
+          id="modal-pedido-estado-container"
+          class="modal-pedido-card__estado"
+        >
           <span id="modal-pedido-estado-icono" class="estado-icono"></span>
           <span id="modal-pedido-estado-texto" class="estado-texto"></span>
         </div>
 
         <div class="modal-pedido-card__seccion">
           <h3>Información de Entrega</h3>
-          <p><strong>Nombre:</strong> <span id="modal-cliente-nombre"></span></p>
-          <p><strong>Dirección:</strong> <span id="modal-cliente-direccion"></span></p>
-          <p><strong>Teléfono:</strong> <span id="modal-cliente-telefono"></span></p>
-          <p><strong>Método de pago:</strong> <span id="modal-metodo-pago"></span></p>
+          <p>
+            <strong>Dirección:</strong>
+            <span id="modal-cliente-direccion"></span>
+          </p>
+          <p>
+            <strong>Teléfono:</strong> <span id="modal-cliente-telefono"></span>
+          </p>
+          <p>
+            <strong>Método de pago:</strong>
+            <span id="modal-metodo-pago"></span>
+          </p>
+        
         </div>
 
         <div class="modal-pedido-card__seccion">
@@ -96,9 +108,7 @@
         </div>
 
         <div class="modal-pedido-card__mensaje-estado">
-          <p class="mensaje-alerta">
-            Gracias por comprar en Food Store.
-          </p>
+          <p class="mensaje-alerta">Gracias por comprar en Food Store.</p>
         </div>
       </div>
     </div>

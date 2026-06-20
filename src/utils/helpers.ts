@@ -1,4 +1,5 @@
-import { getCart } from "./localStorage";
+import { getCart, removeUser } from "./localStorage";
+import { navigate } from "./navigate";
 
 // Función para actualizar la burbuja roja del carrito en el header
 export function actualizarContadorCarrito() {
@@ -9,3 +10,18 @@ export function actualizarContadorCarrito() {
     badge.textContent = totalItems.toString();
   }
 }
+
+export const logout = () => {
+  removeUser();
+  navigate("/src/pages/auth/login/login.html");
+};
+
+export const cerrarSesion = (): void => {
+  const btnsCerrar = document.querySelectorAll(".btnCerrarSesion");
+
+  btnsCerrar.forEach((btn) => {
+    // Evitamos acumular eventos duplicados limpiando el listener antes 
+    btn.removeEventListener("click", logout);
+    btn.addEventListener("click", logout);
+  });
+};

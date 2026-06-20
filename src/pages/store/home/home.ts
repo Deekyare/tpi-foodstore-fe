@@ -1,6 +1,9 @@
 import type { Product } from "../../../types/product";
-import type { ICategoria } from "../../../types/categoria";
-import { actualizarContadorCarrito } from "../../../utils/helpers";
+import type { Categoria } from "../../../types/categoria";
+import {
+  actualizarContadorCarrito,
+  cerrarSesion,
+} from "../../../utils/helpers";
 import { navigate } from "../../../utils/navigate";
 import { getCategories, getProducts } from "../../../data/data";
 import {
@@ -8,11 +11,12 @@ import {
   saveProductsCatalog,
   getCategoriesCatalog,
   saveCategoriesCatalog,
+  getCurrentUser,
 } from "../../../utils/localStorage";
 
 let allProducts: Product[] = [];
 let productosActuales: Product[] = []; // Guarda los productos que se ven en pantalla en cada momento
-let categories: ICategoria[] = [];
+let categories: Categoria[] = [];
 let categoriaActiva: string = "Todas las categorías"; // Guarda el nombre de la categoría o filtro activo
 
 // Elementos del DOM necesarios
@@ -32,6 +36,12 @@ const inputBuscar = document.getElementById("buscar") as HTMLInputElement;
 const menuCategorias = document.getElementById(
   "lista-categorias",
 ) as HTMLUListElement;
+
+const userName = document.querySelector(".user-name") as HTMLSpanElement;
+const user = getCurrentUser();
+if (user && userName) {
+  userName.textContent = `${user.nombre} ${user.apellido}`;
+}
 
 /* ----------------------------------------------------------------------------------------------- */
 // MUESTRA DE PRODUCTOS
@@ -64,6 +74,7 @@ function cargarProductos(listaDeProductos: Product[]) {
       : "Sin categoría";
 
     article.innerHTML = `
+    <p class="product-disponible">${producto.disponible ? "Disponible" : "Agotado"}</p>
       <img src="${producto.imagen}" alt="Imagen de ${producto.nombre}" />
       <div class="info-producto">
         <p class="categoria-nombre">${categoriaNombre}</p>
@@ -108,7 +119,7 @@ function cargarProductos(listaDeProductos: Product[]) {
 /* ----------------------------------------------------------------------------------------------- */
 // SECCIÓN DE CATEGORÍAS (BARRA LATERAL)
 /* ----------------------------------------------------------------------------------------------- */
-const cargarCategorias = (categorias: ICategoria[]) => {
+const cargarCategorias = (categorias: Categoria[]) => {
   // Opción para ver todas las categorías de golpe
   const liTodo = document.createElement("li");
   liTodo.innerHTML = `<a href="#">Ver todas</a>`;
@@ -159,6 +170,36 @@ inputBuscar.addEventListener("input", (e) => {
   cargarProductos(resultado);
 });
 
+// DASHBOARD EN LA HOME (Solo visible para administradores)
+const dashboardNav = document.querySelector(
+  ".dashboard-nav",
+) as HTMLElement | null;
+if (dashboardNav) {
+  if (user && user.rol === "ADMIN") {
+    dashboardNav.classList.remove("display"); // Mostrar a ADMIN
+  } else {
+    dashboardNav.classList.add("display"); // Ocultar a los demás
+  }
+}
+const pedidosNav = document.querySelector(
+  ".pedidos-nav",
+) as HTMLElement | null;
+if (pedidosNav) {
+  if (user && user.rol === "ADMIN") {
+    pedidosNav.classList.add("display"); 
+  } else {
+    pedidosNav.classList.remove("display");
+  }
+}
+
+const carritoNav = document.querySelector(".carrito-nav") as HTMLElement | null;
+if (carritoNav) {
+  if (user && user.rol === "ADMIN") {
+    carritoNav.classList.add("display"); // Ocultar carrito al administrador
+  } else {
+    carritoNav.classList.remove("display"); // Mostrar carrito a clientes y visitantes
+  }
+}
 /* ----------------------------------------------------------------------------------------------- */
 // LOGICA DEL SELECTOR DE ORDENAMIENTO
 /* ----------------------------------------------------------------------------------------------- */
@@ -206,9 +247,13 @@ async function inicializarApp() {
     saveCategoriesCatalog(categories);
   }
 
+  // Filtrar para mostrar solo productos disponibles y no eliminados al cliente
+  allProducts = allProducts.filter((p) => p.disponible && p.eliminado !== true);
+
   cargarCategorias(categories);
   cargarProductos(allProducts); // La app arranca listando todo el menú
 }
 
 inicializarApp();
 actualizarContadorCarrito();
+cerrarSesion();

@@ -1,7 +1,8 @@
 import { getProducts } from "../../../data/data";
 import { type Product, type CartItem } from "../../../types/product";
-import { actualizarContadorCarrito } from "../../../utils/helpers";
-import { getCart, saveCart, getProductsCatalog, saveProductsCatalog } from "../../../utils/localStorage";
+import type { Usuario } from "../../../types/usuario";
+import { actualizarContadorCarrito, cerrarSesion } from "../../../utils/helpers";
+import { getCart, saveCart, getProductsCatalog, saveProductsCatalog, getUSer } from "../../../utils/localStorage";
 
 // Obtener ID del producto desde los parámetros de la URL
 const params = new URLSearchParams(window.location.search);
@@ -101,6 +102,12 @@ function agregarAlCarrito(productoClickeado: Product, cantidad: number) {
   alert(`Se agregó al carrito: ${productoClickeado.nombre} (Cantidad: ${cantidad})`);
   actualizarContadorCarrito();
 }
+const userName = document.querySelector(".user-name") as HTMLSpanElement;
+const userString = getUSer();
+if (userString && userName) {
+  const user = JSON.parse(userString) as Usuario;
+  userName.textContent = `${user.nombre} ${user.apellido}`;
+}
 
 
 // Inicializamos la pantalla al cargar la página
@@ -124,3 +131,4 @@ async function inicializarDetalle() {
 }
 
 inicializarDetalle();
+cerrarSesion();

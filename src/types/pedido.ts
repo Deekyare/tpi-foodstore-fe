@@ -24,4 +24,5 @@ export interface Pedido {
   detalles: DetallePedido[];
   usuarioDto: UsuarioDto;
   direccion?: string;
+  notas?: string;
 }

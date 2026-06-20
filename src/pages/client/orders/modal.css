@@ -38,7 +38,7 @@
   color: var(--color-primario);
 }
 
-.modal-close-btn {
+.modal-cerrar-btn {
   background: none;
   border: none;
   font-size: 2rem;
@@ -46,11 +46,11 @@
   color: var(--color-gris);
 }
 
-.modal-close-btn:hover {
+.modal-cerrar-btn:hover {
   color: var(--color-primario);
 }
 
-/* 1. Estilos para el Estado e Icono */
+/* Estilos para el Estado e Icono */
 .modal-pedido-card__estado {
   display: flex;
   align-items: center;
@@ -71,6 +71,12 @@
 }
 
 /* Bloques de secciones internas */
+
+.modal-pedido-card__seccion{
+ display: flex;
+ flex-direction: column;
+gap: 1rem;
+}
 .modal-pedido-card__seccion h3 {
   font-size: 1rem;
   color: var(--color-texto);
@@ -85,7 +91,7 @@
   line-height: 1.4;
 }
 
-/* 3. Lista de productos del pedido */
+/*Lista de productos del pedido */
 .modal-pedido__productos-lista {
   list-style: none;
   display: flex;
@@ -100,7 +106,8 @@
   color: var(--color-texto);
 }
 
-/* 4. Desglose de costos */
+
+/* Desglose de costos */
 .modal-pedido-card__desglose {
   display: flex;
   flex-direction: column;
@@ -113,7 +120,7 @@
 .desglose-linea {
   display: flex;
   justify-content: space-between;
-  font-size: 0.9rem;
+  font-size: 1.1rem;
   color: var(--color-texto);
 }
 
@@ -121,7 +128,7 @@
   font-weight: bold;
   font-size: 1.1rem;
   color: var(--color-primario);
-  border-top: 1px solid var(--color-borde);
+  border-top: 1.1px solid var(--color-borde);
   padding-top: 6px;
   margin-top: 4px;
 }
@@ -144,4 +151,31 @@
 /* Clase de utilidad para esconder el modal desde TS */
 .hidden {
   display: none;
+}
+
+/* --- ESTILOS PARA FORMULARIOS DENTRO DE MODALES --- */
+
+/* modal-form-group es el grupo de los 3 label e inputs */
+.modal-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.modal-form-label {
+  font-weight: bold;
+  font-size: 0.95rem;
+}
+
+.modal-form-input {
+  padding: 10px;
+  border: 1px solid var(--color-borde);
+  border-radius: 6px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.modal-form-submit {
+  margin: 1rem 0 0 0;
+  width: 100%;
 }

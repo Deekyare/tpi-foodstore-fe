@@ -1,4 +1,4 @@
-import type { ICategoria } from "./categoria";
+import type { Categoria } from "./categoria";
 
 export interface Product {
   id: number;
@@ -8,7 +8,8 @@ export interface Product {
   stock: number;
   imagen: string;
   disponible: boolean;
-  categoria: ICategoria;
+  categoria: Categoria;
+  eliminado?: boolean;
 }
 
 export interface CartItem extends Product {

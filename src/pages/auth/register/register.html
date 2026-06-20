@@ -11,8 +11,26 @@
     <div class="login-container">
       <form class="login-form" id="form">
         <h1 class="login-form__titulo">Food Store</h1>
-        <h2 class="login-form__subtitulo">Iniciar Sesión</h2>
+        <h2 class="login-form__subtitulo">Registro</h2>
 
+        <label class="login-form__label" for="nombre">Nombre:</label>
+        <input
+          class="login-form__input"
+          type="text"
+          id="nombre"
+          name="nombre"
+          placeholder="Ingresa tu nombre"
+          required
+        />
+        <label class="login-form__label" for="apellido">Apellido:</label>
+        <input
+          class="login-form__input"
+          type="text"
+          id="apellido"
+          name="apellido"
+          placeholder="Ingresa tu nombre"
+          required
+        />
         <label class="login-form__label" for="email">Email:</label>
         <input
           class="login-form__input"
@@ -33,21 +51,15 @@
           required
         />
 
-        <button class="login-form__button" type="submit">INGRESAR</button>
+        <button class="login-form__button" type="submit">Registrarse</button>
 
         <p class="login-form__footer">
-          ¿No tenés cuenta?
-          <a href="../register/register.html" class="login-form__link">Registrate acá</a>
+          ¿Ya tenés cuenta?
+          <a href="../login/login.html" class="login-form__link">Iniciar Sesión</a>
         </p>
-
-        <div class="login-form__pruebas">
-          <p class="login-form__pruebas-titulo">Cuentas de prueba:</p>
-          <p>Admin: admin@admin.com / 123456</p>
-          <p>Cliente: cliente@food.com / cliente123</p>
-        </div>
       </form>
     </div>
 
-    <script type="module" src="./login.ts"></script>
+    <script type="module" src="./registro.ts"></script>
   </body>
 </html>

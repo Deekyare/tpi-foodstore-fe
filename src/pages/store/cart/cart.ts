@@ -1,7 +1,18 @@
 import { type CartItem } from "../../../types/product";
 import { type Pedido } from "../../../types/pedido";
-import { actualizarContadorCarrito } from "../../../utils/helpers";
-import { clearCart, getCart, saveCart, getOrders, saveOrders } from "../../../utils/localStorage";
+import {
+  actualizarContadorCarrito,
+  cerrarSesion,
+} from "../../../utils/helpers";
+import {
+  clearCart,
+  getCart,
+  saveCart,
+  getOrders,
+  saveOrders,
+  getCurrentUser,
+  saveUser,
+} from "../../../utils/localStorage";
 import { navigate } from "../../../utils/navigate";
 
 // Seleccionamos el elemento del DOM, donde se insertaran los productos que estan en el local storage.
@@ -11,35 +22,125 @@ const contenedorCompra = document.getElementById(
 
 // Inicializacion del monto en 0.
 let costoTotal = 0;
+const envio = 500;
 
 // Se obtienen los datos.
 const productosEnCarrito: CartItem[] = getCart();
 
-const cajaMonto = document.querySelector(".resumen__total") as HTMLDivElement;
+const subtotalElement = document.getElementById(
+  "resumen-subtotal",
+) as HTMLElement;
+const cajaMonto = document.getElementById("resumen-total") as HTMLElement;
+
+// Elementos del Modal de Checkout
+const modalCheckout = document.getElementById(
+  "modal-checkout",
+) as HTMLDivElement;
+const btnCerrarCheckout = document.getElementById(
+  "btn-cerrar-checkout",
+) as HTMLButtonElement;
+const formCheckout = document.getElementById(
+  "form-checkout",
+) as HTMLFormElement;
+const inputNombre = document.getElementById(
+  "checkout-nombre",
+) as HTMLInputElement;
+const inputApellido = document.getElementById(
+  "checkout-apellido",
+) as HTMLInputElement;
+const inputTelefono = document.getElementById(
+  "checkout-telefono",
+) as HTMLInputElement;
+const inputDireccion = document.getElementById(
+  "checkout-direccion",
+) as HTMLInputElement;
+const selectPago = document.getElementById(
+  "checkout-pago",
+) as HTMLSelectElement;
+const textareaNotas = document.getElementById(
+  "checkout-notas",
+) as HTMLTextAreaElement;
 
 //------------------------------------------------------------------------------------------------
-// BOTON "FINALIZAR COMPRA"
+// BOTON "FINALIZAR COMPRA" & MODAL
 //------------------------------------------------------------------------------------------------
-
 const btnFinalizar = document.querySelector(
   ".btn--finalizar",
 ) as HTMLButtonElement;
 const aviso = document.getElementById("mensaje-procesando") as HTMLDivElement;
-btnFinalizar.addEventListener("click", () => {
-  // Recuperamos los productos actuales usando el helper getCart()
-  const productosEnCarrito = getCart();
-  const envio = 500;
-  // Si el carrito está vacío, no hacemos nada
-  if (productosEnCarrito.length === 0) return;
 
-  // Armamos el paquete del pedido con el formato del json
+btnFinalizar?.addEventListener("click", () => {
+  const user = getCurrentUser();
+  if (!user) {
+    alert("Inicia sesión para realizar un pedido.");
+    navigate("/src/pages/auth/login/login.html");
+    return;
+  }
+
+  const productosActuales = getCart();
+  if (productosActuales.length === 0) return;
+
+  // Pre-cargar nombre si el usuario está logueado
+  if (inputNombre) {
+    inputNombre.value = `${user.nombre}`;
+  }
+  if (inputApellido) {
+    inputApellido.value = `${user.apellido}`;
+  }
+
+  // Pre-cargar celular si el usuario lo tiene guardado
+  if (inputTelefono && user.celular) {
+    inputTelefono.value = user.celular;
+  }
+
+  // Mostrar el modal
+  if (modalCheckout) {
+    modalCheckout.classList.remove("hidden");
+  }
+});
+
+if (btnCerrarCheckout) {
+  btnCerrarCheckout.addEventListener("click", () => {
+    if (modalCheckout) modalCheckout.classList.add("hidden");
+  });
+}
+
+if (modalCheckout) {
+  modalCheckout.addEventListener("click", (e) => {
+    if (e.target === modalCheckout) {
+      modalCheckout.classList.add("hidden");
+    }
+  });
+}
+
+formCheckout?.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  const user = getCurrentUser();
+  if (!user) {
+    alert("Usuario no autenticado.");
+    return;
+  }
+
+  const productosActuales = getCart();
+  if (productosActuales.length === 0) return;
+
+  const nombre = inputNombre ? inputNombre.value.trim() : user.nombre;
+  const apellido = inputApellido ? inputApellido.value.trim() : user.apellido;
+  const celu = inputTelefono.value.trim();
+  const direccion = inputDireccion.value.trim();
+  const metodoPago = selectPago.value;
+  const notas = textareaNotas ? textareaNotas.value.trim() : "";
+
+  // Armamos el paquete del pedido con el formato correcto
   const nuevoPedido: Pedido = {
     id: Date.now(),
     fecha: new Date().toISOString().split("T")[0],
     estado: "PENDIENTE",
     total: costoTotal + envio,
-    formaPago: "EFECTIVO",
-    detalles: productosEnCarrito.map((item) => ({
+    // revisar
+    formaPago: metodoPago as Pedido["formaPago"],
+    detalles: productosActuales.map((item) => ({
       cantidad: item.cantidad,
       subtotal: item.precio * item.cantidad,
       producto: {
@@ -54,30 +155,45 @@ btnFinalizar.addEventListener("click", () => {
       },
     })),
     usuarioDto: {
-      id: 2,
-      nombre: "Juan",
-      apellido: "Pérez",
-      mail: "cliente@mail.com",
-      celular: "1198765432",
-      rol: "USUARIO",
+      id: user.id,
+      nombre: nombre,
+      apellido: apellido,
+      mail: user.mail,
+      celular: celu,
+      rol: user.rol,
     },
-    direccion: "Calle Falsa 123",
+    direccion: direccion,
+    notas: notas || undefined,
   };
 
-  // Lo acumulamos en la lista global de pedidos del sistema
+  // Lo guardamos en la lista de pedidos
   const pedidos = getOrders();
   pedidos.push(nuevoPedido);
   saveOrders(pedidos);
 
-  // Limpiamos el carrito usando clearCart()
-  clearCart();
-  if (aviso) {
-    aviso.classList.remove("hidden"); // Hacemos aparecer el cartel
+  // Actualizamos el celular en los datos del usuario si no lo tenía
+  if (!user.celular) {
+    user.celular = celu;
+    saveUser(user);
   }
-  // Deshabilitamos el botón para que no vuelvan a cliquear mientras procesa
+
+  // Limpiamos el carrito
+  clearCart();
+
+  // Cerramos el modal
+  if (modalCheckout) {
+    modalCheckout.classList.add("hidden");
+  }
+
+  // Mostrar mensaje de procesando
+  if (aviso) {
+    aviso.classList.remove("hidden");
+  }
+
+  // Deshabilitar botón
   btnFinalizar.disabled = true;
 
-  // Corren los 2 segundos automáticos sin bloquear la pantalla
+  // Redirigir después de 2 segundos
   setTimeout(() => {
     navigate("../../client/orders/orders.html");
   }, 2000);
@@ -85,14 +201,14 @@ btnFinalizar.addEventListener("click", () => {
 
 // Funcion para visualizar los items (compras) que estan en local storage.
 function cargarItems() {
+  contenedorCompra.innerHTML = "";
+  costoTotal = 0;
+
   productosEnCarrito.forEach((producto) => {
     // Creamos el elemento article
     const article = document.createElement("article");
     article.classList.add("product-card");
     article.setAttribute("data-id", producto.id.toString());
-    const categoriaNombre = producto.categoria
-      ? producto.categoria.nombre
-      : "Sin categoría";
 
     // Variable local para llevar la cuenta de la cantidad de un producto específico
     let cantidad: number = producto.cantidad || 1;
@@ -100,9 +216,11 @@ function cargarItems() {
     article.innerHTML = `
       <img src="${producto.imagen}" alt="Imagen de ${producto.nombre}" />
       <div class="product__detalle">
-        <p>${categoriaNombre}</p>
-        <h3>${producto.nombre}</h3>
-        <p>Precio: <strong>$ ${producto.precio}</strong></p>
+        <h3 class="detalle-renglon">${producto.nombre}</h3>
+        <p class="detalle-renglon">Precio unitario: <strong>$ ${producto.precio}</strong></p>
+        <p class="detalle-renglon" style="font-size: 0.95rem; color: var(--color-gris);">
+          Subtotal: <strong class="item-subtotal-val">$ ${(producto.precio * cantidad).toFixed(2)}</strong>
+        </p>
       </div>
       
       <!-- Nuevo componente contador -->
@@ -110,7 +228,6 @@ function cargarItems() {
         <button class="btn--restar">-</button>
         <span class="quantity-selector__txt">${cantidad}</span>
         <button class="btn--sumar">+</button>
-        
       </div>
       <div>
         <button class="btn--eliminar"> Eliminar </button>
@@ -130,14 +247,26 @@ function cargarItems() {
     const btnEliminar = article.querySelector(
       ".btn--eliminar",
     ) as HTMLButtonElement;
+    const spanItemSubtotal = article.querySelector(
+      ".item-subtotal-val",
+    ) as HTMLSpanElement;
 
     // Lógica para sumar
     btnSumar.addEventListener("click", () => {
-      cantidad++;
-      spanCantidad.textContent = cantidad.toString();
-      costoTotal += producto.precio;
-      mostrarTotal();
-      actualizarCantidad(producto.id, cantidad);
+      if (cantidad < producto.stock) {
+        cantidad++;
+        spanCantidad.textContent = cantidad.toString();
+        if (spanItemSubtotal) {
+          spanItemSubtotal.textContent = `$ ${(producto.precio * cantidad).toFixed(2)}`;
+        }
+        costoTotal += producto.precio;
+        mostrarTotal();
+        actualizarCantidad(producto.id, cantidad);
+      } else {
+        alert(
+          `No puedes agregar más unidades: el límite de stock de ${producto.nombre} es ${producto.stock}.`,
+        );
+      }
     });
 
     // Lógica para restar
@@ -146,9 +275,11 @@ function cargarItems() {
         // Evita que baje de 1
         cantidad--;
         spanCantidad.textContent = cantidad.toString();
+        if (spanItemSubtotal) {
+          spanItemSubtotal.textContent = `$ ${(producto.precio * cantidad).toFixed(2)}`;
+        }
         costoTotal -= producto.precio;
         mostrarTotal();
-
         actualizarCantidad(producto.id, cantidad);
       }
     });
@@ -167,8 +298,14 @@ function cargarItems() {
     });
 
     contenedorCompra.appendChild(article);
-    costoTotal = costoTotal + producto.precio * cantidad;
+    costoTotal += producto.precio * cantidad;
   });
+
+  const userName = document.querySelector(".user-name") as HTMLSpanElement;
+  const user = getCurrentUser();
+  if (user && userName) {
+    userName.textContent = `${user.nombre} ${user.apellido}`;
+  }
 
   const mostrarMensajeVacio = () => {
     contenedorCompra.innerHTML = "";
@@ -176,9 +313,9 @@ function cargarItems() {
     const divVacio = document.createElement("div");
     divVacio.classList.add("carrito-vacio-container");
     divVacio.innerHTML = `
-    <img src="/assets/carrito-vacio.png" alt="Carrito vacío" class="carrito-vacio__img" />
-    <h2 class="mensaje-vacio">Tu carrito está vacío</h2>
-  `;
+      <img src="/assets/carrito-vacio.png" alt="Carrito vacío" class="carrito-vacio__img" />
+      <h2 class="mensaje-vacio">Tu carrito está vacío</h2>
+    `;
     contenedorCompra.appendChild(divVacio);
     const tarjetaResumen = document.querySelector(
       ".tarjeta-izq",
@@ -202,22 +339,25 @@ function cargarItems() {
     mostrarMensajeVacio();
   });
 }
+
 // Funcion que muestra e inserta el monto total.
 function mostrarTotal() {
-  cajaMonto.innerHTML = `<strong>TOTAL: $ ${costoTotal}</strong>`;
+  if (subtotalElement) {
+    subtotalElement.textContent = `$${costoTotal.toFixed(2)}`;
+  }
+  if (cajaMonto) {
+    cajaMonto.textContent = `$${(costoTotal + (costoTotal > 0 ? envio : 0)).toFixed(2)}`;
+  }
 }
 
 //Funcion para eliminar un producto entero del carrito a traves del boton ELIMINAR.
 function eliminarItem(id: number) {
-  // Lee los productos existentes en LocalStorage
   const carritoActual: CartItem[] = getCart();
 
   // Filtramos a todos MENOS al que tenga el ID que pasaron
   const carritoActualizado = carritoActual.filter(
     (producto) => producto.id !== id,
   );
-
-  // Sobrescribo el local storage
   saveCart(carritoActualizado);
   // Retorna la cantidad de productos que quedan
   return carritoActualizado.length;
@@ -239,6 +379,8 @@ function actualizarCantidad(id: number, nuevaCantidad: number) {
   saveCart(carritoActualizado);
   actualizarContadorCarrito();
 }
+
 actualizarContadorCarrito();
 cargarItems();
 mostrarTotal();
+cerrarSesion();

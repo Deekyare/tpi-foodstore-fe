@@ -1,13 +1,24 @@
-import { actualizarContadorCarrito } from "../../../utils/helpers";
+import {
+  actualizarContadorCarrito,
+  cerrarSesion,
+} from "../../../utils/helpers";
 import type { Pedido } from "../../../types/pedido";
-import { getOrders } from "../../../utils/localStorage";
+import { getOrders, getCurrentUser, saveOrders } from "../../../utils/localStorage";
+import { checkAuhtUser } from "../../../utils/utilsLogin/auth";
+import { getPedidos } from "../../../data/data";
+
+// Protegemos la página: solo CLIENTE/USUARIO
+checkAuhtUser(
+  "/src/pages/auth/login/login.html",
+  "/src/pages/store/home/home.html?error=incorrect_role",
+  "USUARIO",
+);
 
 const contenedorPedidos = document.getElementById(
   "contenedor__pedidos",
 ) as HTMLDivElement;
 
-// Recuperamos la lista de pedidos reales desde el localStorage usando el helper
-const pedidos: Pedido[] = getOrders();
+let pedidosOrdenados: Pedido[] = [];
 
 function cargarPedidos() {
   // Limpiamos el contenedor por si acaso
@@ -17,7 +28,7 @@ function cargarPedidos() {
     return;
   }
 
-  pedidos.forEach((pedido) => {
+  pedidosOrdenados.forEach((pedido) => {
     // Determinamos la clase de color y texto según el estado
     let claseEstado = "orden-estado--pendiente";
     let estadoTexto = "Pendiente";
@@ -33,7 +44,10 @@ function cargarPedidos() {
       estadoTexto = "Cancelado";
     }
 
-    const totalItems = (pedido.detalles || []).reduce((sum, item) => sum + item.cantidad, 0);
+    const totalItems = (pedido.detalles || []).reduce(
+      (sum, item) => sum + item.cantidad,
+      0,
+    );
 
     // Creamos el elemento article
     const article = document.createElement("article");
@@ -59,7 +73,7 @@ function cargarPedidos() {
           </ul>
         </div>
         <div class="contenedor-total">
-        <span> &#128092; ${totalItems} ${totalItems === 1 ? 'Producto' : 'Productos'}</span>
+        <span> &#128092; ${totalItems} ${totalItems === 1 ? "Producto" : "Productos"}</span>
         <p class="orden-total">Total: $${pedido.total.toFixed(2)}</p>
         </div>
       `;
@@ -71,11 +85,15 @@ function cargarPedidos() {
     contenedorPedidos.appendChild(article);
   });
 }
+const userName = document.querySelector(".user-name") as HTMLSpanElement;
+const user = getCurrentUser();
+if (user && userName) {
+  userName.textContent = `${user.nombre} ${user.apellido}`;
+}
 
 // La función recibe el objeto concreto del pedido
 function abrirModalDetalle(pedido: Pedido) {
   const modal = document.getElementById("modal-pedido");
-  const modalNombre = document.getElementById("modal-cliente-nombre");
   const modalDireccion = document.getElementById("modal-cliente-direccion");
   const modalTelefono = document.getElementById("modal-cliente-telefono");
   const modalMetodoPago = document.getElementById("modal-metodo-pago");
@@ -85,7 +103,9 @@ function abrirModalDetalle(pedido: Pedido) {
   const listaProductos = document.getElementById("modal-productos-lista");
 
   // Campos de estado dinámico
-  const estadoContainer = document.getElementById("modal-pedido-estado-container");
+  const estadoContainer = document.getElementById(
+    "modal-pedido-estado-container",
+  );
   const estadoIcono = document.getElementById("modal-pedido-estado-icono");
   const estadoTexto = document.getElementById("modal-pedido-estado-texto");
 
@@ -98,11 +118,11 @@ function abrirModalDetalle(pedido: Pedido) {
 
     if (pedido.estado === "EN_PREPARACION") {
       estadoTexto.textContent = "Estado: En Preparación";
-      estadoContainer.classList.add("estado--pendiente"); 
+      estadoContainer.classList.add("estado--pendiente");
       estadoIcono.textContent = "⏳";
     } else if (pedido.estado === "ENTREGADO") {
       estadoTexto.textContent = "Estado: Completado";
-      estadoContainer.classList.add("estado--entregado"); 
+      estadoContainer.classList.add("estado--entregado");
       estadoIcono.textContent = "✅";
     } else if (pedido.estado === "CANCELADO") {
       estadoTexto.textContent = "Estado: Cancelado";
@@ -116,20 +136,22 @@ function abrirModalDetalle(pedido: Pedido) {
     }
   }
 
-  const nombreCliente = pedido.usuarioDto 
-    ? `${pedido.usuarioDto.nombre} ${pedido.usuarioDto.apellido}`
-    : "Cliente Anónimo";
+  const subtotalCalc = (pedido.detalles || []).reduce(
+    (sum, item) => sum + item.subtotal,
+    0,
+  );
+  let envio = 500;
 
-  const subtotalCalc = (pedido.detalles || []).reduce((sum, item) => sum + item.subtotal, 0);
-  const envioCalc = pedido.total - subtotalCalc;
-
-  // Insertamos la información dinámica directamente en sus lugares correspondientes
-  if (modalNombre) modalNombre.textContent = nombreCliente;
-  if (modalDireccion) modalDireccion.textContent = pedido.direccion || "Calle Falsa 123";
-  if (modalTelefono) modalTelefono.textContent = pedido.usuarioDto?.celular || "Sin teléfono";
-  if (modalMetodoPago) modalMetodoPago.textContent = pedido.formaPago || "Efectivo";
+  
+  if (modalDireccion)
+    modalDireccion.textContent = pedido.direccion || "Privet Drive 4";
+  if (modalTelefono)
+    modalTelefono.textContent = pedido.usuarioDto?.celular || "Sin teléfono";
+  if (modalMetodoPago)
+    modalMetodoPago.textContent = pedido.formaPago || "Efectivo";
   if (modalSubtotal) modalSubtotal.textContent = `$${subtotalCalc.toFixed(2)}`;
-  if (modalEnvio) modalEnvio.textContent = `$${envioCalc >= 0 ? envioCalc.toFixed(2) : "0.00"}`;
+  if (modalEnvio)
+    modalEnvio.textContent = `$${envio >= 0 ? envio.toFixed(2) : "0.00"}`;
   if (modalTotal) modalTotal.textContent = `$${pedido.total.toFixed(2)}`;
 
   // Limpiamos la lista de productos viejos para que no se acumulen
@@ -168,5 +190,33 @@ if (modalContainer) {
   });
 }
 
+async function inicializarApp() {
+  let pedidos = getOrders();
+
+  // Si no hay pedidos en localStorage, hacemos fetch de pedidos.json y los guardamos
+  if (pedidos.length === 0) {
+    const pedidosIniciales = await getPedidos();
+    saveOrders(pedidosIniciales);
+    pedidos = pedidosIniciales;
+  }
+
+  // Filtrar pedidos por el ID del usuario en sesión
+  if (user) {
+    const pedidosUsuario = pedidos.filter(
+      (p) => p.usuarioDto && Number(p.usuarioDto.id) === Number(user.id)
+    );
+
+    // Ordenar pedidos del más nuevo al más viejo
+    pedidosOrdenados = pedidosUsuario.sort((a, b) => {
+      const fechaA = new Date(a.fecha).getTime();
+      const fechaB = new Date(b.fecha).getTime();
+      return fechaB - fechaA;
+    });
+  }
+
+  cargarPedidos();
+}
+
+inicializarApp();
 actualizarContadorCarrito();
-cargarPedidos();
+cerrarSesion();

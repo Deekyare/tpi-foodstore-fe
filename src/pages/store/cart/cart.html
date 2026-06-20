@@ -7,6 +7,8 @@
     <title>Food Store</title>
     <link rel="stylesheet" href="../../../style.css" />
     <link rel="stylesheet" href="./cartStyles.css" />
+    <!-- usa los mismos estilos de modal de pedidos -->
+    <link rel="stylesheet" href="../../client/orders/modal.css" />
   </head>
   <body>
     <header class="header">
@@ -26,19 +28,15 @@
             >
           </li>
           <li>
-            <a
-              href="../cart/cart.html"
-              class="nav__link"
-              style="display: flex; align-items: center; gap: 5px"
-            >
+            <a href="../cart/cart.html" class="nav__link">
               🛒 Carrito
               <span class="cartCounter" id="cart-counter">0</span>
             </a>
           </li>
           <li>
-            <span class="nav__link" style="color: var(--color-gris)"
-              >Juan Pérez</span
-            >
+            <span class="nav__link user-name" style="color: var(--color-gris)">
+              <!-- intectamos el nombre por ts -->
+            </span>
           </li>
           <li>
             <button class="btnCerrarSesion">Cerrar Sesión</button>
@@ -61,9 +59,21 @@
         <div>
           <h2>Resumen</h2>
 
-          <!-- Contenido propio del lado derecho -->
+          <!-- Contenido del lado derecho -->
           <div class="resumen">
-            <div class="resumen__total"></div>
+            <div class="detalle-resumen">
+              <span>Subtotal:</span>
+              <span id="resumen-subtotal">$0.00</span>
+            </div>
+            <div class=" detalle-resumen">
+              <span>Envío:</span>
+              <span>$500.00</span>
+            </div>
+            <div class="desglose-linea detalle-resumen">
+              <span>TOTAL:</span>
+              <span id="resumen-total">$0.00</span>
+            </div>
+
             <button class="btn btn--finalizar">Finalizar compra</button>
 
             <div id="mensaje-procesando" class="mensaje-espera hidden">
@@ -75,6 +85,97 @@
         </div>
       </section>
     </main>
+
+    <!-- MODAL DE CHECKOUT -->
+    <div id="modal-checkout" class="modal-container hidden">
+      <div class="modal-pedido-card">
+        <div class="modal-pedido-card__header">
+          <h2>Finalizar Pedido</h2>
+          <button
+            type="button"
+            id="btn-cerrar-checkout"
+            class="modal-cerrar-btn"
+          >
+            &times;
+          </button>
+        </div>
+        <form id="form-checkout" class="modal-pedido-card__seccion">
+          <!-- modal-form-group es el grupo de los 3 label e inputs -->
+          <div class="modal-form-group">
+            <label for="checkout-nombre" class="modal-form-label"
+              >Nombre:</label
+            >
+            <input
+              type="text"
+              id="checkout-nombre"
+              class="modal-form-input"
+              required
+              placeholder="Nombre"
+            />
+          </div>
+          <div class="modal-form-group">
+            <label for="checkout-apellido" class="modal-form-label"
+              >Apellido:</label
+            >
+            <input
+              type="text"
+              id="checkout-apellido"
+              class="modal-form-input"
+              required
+              placeholder="Apellido"
+            />
+          </div>
+          <div class="modal-form-group">
+            <label for="checkout-telefono" class="modal-form-label"
+              >Teléfono de Contacto :</label
+            >
+            <input
+              type="tel"
+              id="checkout-telefono"
+              class="modal-form-input"
+              required
+              placeholder="Ej: 1198765432"
+            />
+          </div>
+          <div class="modal-form-group">
+            <label for="checkout-direccion" class="modal-form-label"
+              >Dirección de Entrega (Requerido):</label
+            >
+            <input
+              type="text"
+              id="checkout-direccion"
+              class="modal-form-input"
+              required
+              placeholder="Ej: Calle Falsa 123"
+            />
+          </div>
+          <div class="modal-form-group">
+            <label for="checkout-pago" class="modal-form-label"
+              >Método de Pago:</label
+            >
+            <select id="checkout-pago" class="modal-form-input" required>
+              <option value="EFECTIVO">Efectivo</option>
+              <option value="TARJETA">Tarjeta de Crédito/Débito</option>
+              <option value="TRANSFERENCIA">Transferencia Bancaria</option>
+            </select>
+          </div>
+          <div class="modal-form-group">
+            <label for="checkout-notas" class="modal-form-label"
+              >Notas adicionales:</label
+            >
+            <textarea
+              id="checkout-notas"
+              class="modal-form-input"
+              placeholder="Ej: Sin cebolla, etc."
+              rows="3"
+            ></textarea>
+          </div>
+          <button type="submit" class="btn btn--finalizar modal-form-submit">
+            Confirmar Compra
+          </button>
+        </form>
+      </div>
+    </div>
 
     <footer class="footer">
       <p>&copy; 2026 TPI - Giardini Silvia</p>

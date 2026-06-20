@@ -1,6 +1,7 @@
 import type { CartItem, Product } from "../types/product";
 import type { Pedido } from "../types/pedido";
-import type { ICategoria } from "../types/categoria";
+import type { Categoria } from "../types/categoria";
+import type { Usuario } from "../types/usuario";
 
 // --- CARRITO (CART) ---
 // Usamos la clave "carrito" para evitar colisión con la lista global "productos"
@@ -38,11 +39,42 @@ export const getProductsCatalog = (): Product[] => {
 };
 
 // --- CATEGORIAS (CATEGORIES CATALOG) ---
-export const saveCategoriesCatalog = (categorias: ICategoria[]) => {
+export const saveCategoriesCatalog = (categorias: Categoria[]) => {
   localStorage.setItem("categorias", JSON.stringify(categorias));
 };
 
-export const getCategoriesCatalog = (): ICategoria[] => {
+export const getCategoriesCatalog = (): Categoria[] => {
   const data = localStorage.getItem("categorias");
   return data ? JSON.parse(data) : [];
 };
+
+// --- USUARIOS ---
+export const saveUser = (user: Usuario) => {
+  const parseUser = JSON.stringify(user);
+  localStorage.setItem("userData", parseUser);
+};
+export const getUSer = () => {
+  return localStorage.getItem("userData");
+};
+
+export const getCurrentUser = (): Usuario | null => {
+  const data = getUSer();
+  return data ? JSON.parse(data) : null;
+};
+
+export const removeUser = () => {
+  localStorage.removeItem("userData");
+};
+
+// --- LISTA DE USUARIOS REGISTRADOS ---
+export const saveUsersList = (users: Usuario[]) => {
+  localStorage.setItem("usuarios", JSON.stringify(users));
+};
+
+export const getUsersList = (): Usuario[] => {
+  const data = localStorage.getItem("usuarios");
+  return data ? JSON.parse(data) : [];
+};
+
+
+
