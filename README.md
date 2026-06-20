@@ -1,42 +1,69 @@
-# Food Store - Evaluación 1 #MODIFICAR!!!!!!!!!!!!!!!!!!!!
+# Food Store - Evaluación 2
 
-Proyecto **Food Store**, desarrollada como parte de la Evaluación 1 de Programación 3.
+Proyecto **Food Store**, desarrollado como parte de la Evaluación 2 de Programación 3.
 
-## ✍️ Descripción
+## Descripción
 
-La aplicación permite a los usuarios navegar por un catálogo de productos, filtrar por categorías, buscar productos por nombre y gestionar un carrito de compras interactivo con persistencia de datos en local storage.
+La aplicación es un sistema web completo de tienda de alimentos que permite la gestión de pedidos tanto desde la perspectiva del cliente como del administrador. Cuenta con autenticación de usuarios, protección de rutas basadas en roles (`USUARIO` y `ADMIN`), catálogo dinámico de productos, carrito de compras interactivo y un panel de administración.
 
-## 🚀 Funcionalidades Implementadas
+---
 
-- **Catálogo Dinámico**: Renderizado de productos desde una fuente de datos centralizada.
-- **Carrito de Compras**:
-  - Agregar productos (con incremento de cantidad si ya existen).
-  - Persistencia en `localStorage`.
-  - Cálculo automático del total.
-  - Vaciar carrito.
-- **Búsqueda y Filtros**:
-  - Buscador por nombre de producto.
-  - Menú lateral de categorías con opción de "Ver Todo".
+## Funcionalidades Implementadas
 
-## 🛠️ Tecnologías utilizadas
+### Autenticación y Control de Accesos
 
-- HTML5 / CSS3
-- JavaScript / TypeScript
-- Vite como entorno de desarrollo
+- **Registro de Usuarios:** Formulario con validación de formato de email, longitud de contraseña (mínimo 6 caracteres), verificación de email único.
+- **Inicio de Sesión:** Validación de credenciales.
+- **Protección de Rutas:** Control de acceso según el rol (`ADMIN` / `USUARIO`) en base a la sesión activa. Redirección automática si se intenta acceder a una ruta sin autorización.
+- **Persistencia:** Sesión de usuario persistente en `localStorage`.
 
-## 📦 Instalación y Ejecución
+### Módulo del Cliente (Tienda y Carrito)
+
+- **Catálogo Dinámico:** Renderizado de productos desde una fuente de datos centralizada con filtrado por categorías y buscador por nombre.
+- **Carrito Interactivo:**
+  - Agregar/quitar productos (con límites basados en el stock disponible).
+  - Cálculo de subtotal y total dinámicos.
+  - Persistencia de los elementos del carrito.
+  - Opción de vaciar carrito.
+- **Checkout:** Modal de finalización de compra con campos para nombre, apellido, teléfono, dirección, método de pago y notas adicionales de preparación.
+
+### Gestión de Pedidos del Cliente
+
+- **Historial de Pedidos:** Listado de compras ordenado del más reciente al más antiguo.
+- **Detalle del Pedido:** Modal interactivo que muestra los productos comprados, montos de subtotal, envío y total general, dirección de entrega, teléfono de contacto y estado del pedido.
+
+### Panel de Administración
+
+- **Gestión de Órdenes:** Lista global de pedidos realizados con cambio de estado interactivo (Pendiente, En Preparación, Completado, Cancelado).
+
+---
+
+## Tecnologías Utilizadas
+
+- **HTML5 / CSS3** (Diseño responsivo y modal personalizado)
+- **TypeScript / JavaScript** (Lógica de negocio tipada)
+- **Vite** (Entorno de desarrollo rápido y empaquetador de producción)
+- **Local Storage** (Base de datos local para persistencia de datos)
+
+---
+
+## Instalación y Ejecución
 
 1. **Instalar dependencias**:
-   Usar `pnpm` para la gestión de paquetes:
+   Usar `pnpm` o `npm` para la gestión de paquetes:
 
    ```bash
    pnpm install
+   # o
+   npm install
    ```
 
 2. **Ejecutar el servidor de desarrollo**:
 
    ```bash
    pnpm dev
+   # o
+   npm run dev
    ```
 
 3. **Acceder a la aplicación**:
