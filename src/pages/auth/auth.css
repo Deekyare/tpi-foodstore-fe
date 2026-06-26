@@ -63,7 +63,7 @@
   border-color: var(--color-focus);
 }
 
-/* BOTÓN DE INGRESO PRINCIPAL (Sigue la estética de la captura oficial) */
+/* BOTÓN DE INGRESO PRINCIPAL */
 .login-form__button {
   padding: 12px;
   background-color: var(--color-primario);

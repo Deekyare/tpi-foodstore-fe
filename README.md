@@ -1,6 +1,6 @@
 # Food Store - Evaluación 2
 
-Proyecto **Food Store**, desarrollado como parte de la Evaluación 2 de Programación 3.
+Proyecto **Food Store**, desarrollado como Trabajo Integrador Final para la materia Programación 3.
 
 ## Descripción
 
@@ -20,6 +20,7 @@ La aplicación es un sistema web completo de tienda de alimentos que permite la 
 ### Módulo del Cliente (Tienda y Carrito)
 
 - **Catálogo Dinámico:** Renderizado de productos desde una fuente de datos centralizada con filtrado por categorías y buscador por nombre.
+- **Detalle del Producto:** Vista detallada de cada artículo (imagen, nombre, precio, descripción, stock, categoría y disponibilidad) con selector de cantidad interactivo que controla el stock.
 - **Carrito Interactivo:**
   - Agregar/quitar productos (con límites basados en el stock disponible).
   - Cálculo de subtotal y total dinámicos.
@@ -34,7 +35,15 @@ La aplicación es un sistema web completo de tienda de alimentos que permite la 
 
 ### Panel de Administración
 
-- **Gestión de Órdenes:** Lista global de pedidos realizados con cambio de estado interactivo (Pendiente, En Preparación, Completado, Cancelado).
+- **Dashboard Estadístico (Panel de Control):** Visualización interactiva de métricas clave calculadas dinámicamente:
+  - Cantidad total de categorías.
+  - Cantidad total de productos y cantidad de productos disponibles.
+  - Cantidad total de pedidos.
+  - Total de ingresos acumulados (suma del total de pedidos no cancelados).
+  - Cantidad de pedidos según su estado actual (Pendiente, En Preparación, Entregado).
+- **Gestión de Órdenes:** Lista global de pedidos realizados ordenada por fecha con cambio de estado interactivo (Pendiente, En Preparación, Completado, Cancelado) que se sincroniza inmediatamente con `localStorage`.
+- **Gestión de Productos:** Listado de productos en formato de tabla para administración que muestra el ID, miniatura del producto, nombre, descripción, precio, categoría, stock y estado de actividad (Activo/Inactivo) con botones de edición y eliminación.
+- **Gestión de Categorías:** Listado de categorías en formato de tabla para administración que muestra el ID, nombre y descripción, con botones de edición y eliminación.
 
 ---
 
@@ -71,4 +80,4 @@ La aplicación es un sistema web completo de tienda de alimentos que permite la 
 
 ---
 
-**Desarrollado por:** Silvia Giardini - Programación III - 2026
+**Desarrollado por:** Silvia Giardini - TFI - Programación III - 2026

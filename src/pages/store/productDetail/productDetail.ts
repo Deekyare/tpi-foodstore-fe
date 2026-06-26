@@ -1,15 +1,23 @@
 import { getProducts } from "../../../data/data";
 import { type Product, type CartItem } from "../../../types/product";
 import type { Usuario } from "../../../types/usuario";
-import { actualizarContadorCarrito, cerrarSesion } from "../../../utils/helpers";
-import { getCart, saveCart, getProductsCatalog, saveProductsCatalog, getUSer } from "../../../utils/localStorage";
+import {
+  actualizarContadorCarrito,
+  cerrarSesion,
+} from "../../../utils/helpers";
+import {
+  getCart,
+  saveCart,
+  getProductsCatalog,
+  saveProductsCatalog,
+  getUSer,
+} from "../../../utils/localStorage";
 
 // Obtener ID del producto desde los parámetros de la URL
 const params = new URLSearchParams(window.location.search);
 const productId = Number(params.get("id"));
 
 let producto: Product;
-
 
 // Seleccionar los elementos del DOM de esta pantalla
 const btnRestar = document.querySelector(".btn--restar") as HTMLButtonElement;
@@ -24,17 +32,28 @@ let cantidadSeleccionada: number = 1;
 
 // Renderizar la información del producto de forma dinámica
 function renderizarDetalleProducto() {
-  const imgElement = document.getElementById("producto-imagen") as HTMLImageElement;
-  const catElement = document.querySelector(".producto-categoria") as HTMLSpanElement;
-  const tituloElement = document.querySelector(".producto-titulo") as HTMLHeadingElement;
-  const precioElement = document.querySelector(".producto-precio") as HTMLDivElement;
-  const stockElement = document.querySelector(".producto-stock") as HTMLSpanElement;
-  const descripElement = document.querySelector(".producto-descripcion") as HTMLParagraphElement;
+  const imgElement = document.getElementById(
+    "producto-imagen",
+  ) as HTMLImageElement;
+  const catElement = document.querySelector(
+    ".producto-categoria",
+  ) as HTMLSpanElement;
+  const tituloElement = document.querySelector(
+    ".producto-titulo",
+  ) as HTMLHeadingElement;
+  const precioElement = document.querySelector(
+    ".producto-precio",
+  ) as HTMLDivElement;
+  const stockElement = document.querySelector(
+    ".producto-stock",
+  ) as HTMLSpanElement;
+  const descripElement = document.querySelector(
+    ".producto-descripcion",
+  ) as HTMLParagraphElement;
 
-  const categoriaNombre =
-    producto.categoria
-      ? producto.categoria.nombre
-      : "Sin categoría";
+  const categoriaNombre = producto.categoria
+    ? producto.categoria.nombre
+    : "Sin categoría";
 
   // Al usar "as Type", TypeScript asume que el elemento no es nulo y podemos asignar propiedades directamente.
   imgElement.src = producto.imagen;
@@ -42,12 +61,14 @@ function renderizarDetalleProducto() {
   catElement.textContent = categoriaNombre;
   tituloElement.textContent = producto.nombre;
   precioElement.textContent = `$${producto.precio.toFixed(2)}`;
-  
+
   stockElement.textContent = producto.disponible
     ? `Disponible (Stock: ${producto.stock})`
     : "Agotado / Sin Stock";
-  stockElement.style.backgroundColor = producto.disponible ? "#00c98e" : "#e53e3e";
-  
+  stockElement.style.backgroundColor = producto.disponible
+    ? "#00c98e"
+    : "#e53e3e";
+
   descripElement.textContent = producto.descripcion;
 
   // Si no está disponible, deshabilitamos el botón de agregar
@@ -64,7 +85,9 @@ btnSumar.addEventListener("click", () => {
     cantidadSeleccionada++;
     spanCantidad.textContent = cantidadSeleccionada.toString();
   } else if (producto.disponible) {
-    alert(`No puedes agregar más de ${producto.stock} unidades (límite de stock).`);
+    alert(
+      `No puedes agregar más de ${producto.stock} unidades (límite de stock).`,
+    );
   }
 });
 
@@ -89,7 +112,9 @@ function agregarAlCarrito(productoClickeado: Product, cantidad: number) {
     if (productoExistente.cantidad + cantidad <= productoClickeado.stock) {
       productoExistente.cantidad += cantidad;
     } else {
-      alert(`No se pudo agregar: ya tienes ${productoExistente.cantidad} en tu carrito y el límite de stock es ${productoClickeado.stock}.`);
+      alert(
+        `No se pudo agregar: ya tienes ${productoExistente.cantidad} en tu carrito y el límite de stock es ${productoClickeado.stock}.`,
+      );
       return;
     }
   } else {
@@ -99,16 +124,50 @@ function agregarAlCarrito(productoClickeado: Product, cantidad: number) {
 
   // Guardamos el carrito actualizado en localStorage
   saveCart(listaDeCompras);
-  alert(`Se agregó al carrito: ${productoClickeado.nombre} (Cantidad: ${cantidad})`);
   actualizarContadorCarrito();
+  alert(
+    `Se agregó al carrito: ${productoClickeado.nombre} (Cantidad: ${cantidad})`,
+  );
 }
 const userName = document.querySelector(".user-name") as HTMLSpanElement;
 const userString = getUSer();
+let user: Usuario | null = null;
 if (userString && userName) {
-  const user = JSON.parse(userString) as Usuario;
+  user = JSON.parse(userString) as Usuario;
   userName.textContent = `${user.nombre} ${user.apellido}`;
 }
 
+// Controlar accesos de navegación según el rol
+const dashboardNav = document.querySelector(
+  ".dashboard-nav",
+) as HTMLElement | null;
+if (dashboardNav) {
+  if (user && user.rol === "ADMIN") {
+    dashboardNav.classList.remove("display"); // Mostrar a ADMIN
+  } else {
+    dashboardNav.classList.add("display"); // Ocultar a los demás
+  }
+}
+
+const pedidosNav = document.querySelector(
+  ".pedidos-nav",
+) as HTMLElement | null;
+if (pedidosNav) {
+  if (user && user.rol === "ADMIN") {
+    pedidosNav.classList.add("display"); 
+  } else {
+    pedidosNav.classList.remove("display");
+  }
+}
+
+const carritoNav = document.querySelector(".carrito-nav") as HTMLElement | null;
+if (carritoNav) {
+  if (user && user.rol === "ADMIN") {
+    carritoNav.classList.add("display"); // Ocultar carrito al administrador
+  } else {
+    carritoNav.classList.remove("display"); // Mostrar carrito a clientes y visitantes
+  }
+}
 
 // Inicializamos la pantalla al cargar la página
 async function inicializarDetalle() {
@@ -118,6 +177,11 @@ async function inicializarDetalle() {
     saveProductsCatalog(allProducts);
   }
   producto = allProducts.find((p) => p.id === productId) || allProducts[0];
+
+  if (!producto) {
+    console.error("No se encontró el producto.");
+    return;
+  }
 
   renderizarDetalleProducto();
   actualizarContadorCarrito();

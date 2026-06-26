@@ -5,7 +5,7 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro transparente */
+  background-color: rgba(0, 0, 0, 0.5); 
   display: flex;
   justify-content: center;
   align-items: center;
@@ -133,7 +133,7 @@ gap: 1rem;
   margin-top: 4px;
 }
 
-/* 5. Mensaje dinámico de abajo */
+/* Mensaje dinámico inferior */
 .modal-pedido-card__mensaje-estado {
   text-align: center;
   background-color: #f9f9f9;
@@ -148,7 +148,7 @@ gap: 1rem;
   font-style: italic;
 }
 
-/* Clase de utilidad para esconder el modal desde TS */
+/* Clase para esconder el modal desde TS */
 .hidden {
   display: none;
 }

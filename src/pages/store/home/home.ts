@@ -116,15 +116,15 @@ function cargarProductos(listaDeProductos: Product[]) {
   }
 }
 
-/* ----------------------------------------------------------------------------------------------- */
-// SECCIÓN DE CATEGORÍAS (BARRA LATERAL)
-/* ----------------------------------------------------------------------------------------------- */
+/* ----------------------------------------SECCIÓN DE CATEGORÍAS (BARRA LATERAL)------------------------------------------------------- */
+
 const cargarCategorias = (categorias: Categoria[]) => {
   // Opción para ver todas las categorías de golpe
   const liTodo = document.createElement("li");
   liTodo.innerHTML = `<a href="#">Ver todas</a>`;
   liTodo.addEventListener("click", () => {
     if (selectOrdenamiento) selectOrdenamiento.value = "default"; // Reseteamos el selector
+    if (inputBuscar) inputBuscar.value = ""; // Limpiar buscador
     categoriaActiva = "Todas las categorías";
     cargarProductos(allProducts);
   });
@@ -137,6 +137,7 @@ const cargarCategorias = (categorias: Categoria[]) => {
 
     li.addEventListener("click", () => {
       if (selectOrdenamiento) selectOrdenamiento.value = "default"; // Reseteamos el selector antes de filtrar
+      if (inputBuscar) inputBuscar.value = ""; // Limpiar buscador
       categoriaActiva = categoria.nombre;
 
       const resultadoCategoria = allProducts.filter((producto) => {
@@ -152,9 +153,8 @@ const cargarCategorias = (categorias: Categoria[]) => {
   });
 };
 
-/* ----------------------------------------------------------------------------------------------- */
-// LOGICA DE LA BARRA DE BÚSQUEDA
-/* ----------------------------------------------------------------------------------------------- */
+/* ----------------------------------------LOGICA DE LA BARRA DE BÚSQUEDA------------------------------------------------------- */
+
 inputBuscar.addEventListener("input", (e) => {
   if (selectOrdenamiento) selectOrdenamiento.value = "default"; // Reseteamos el selector al escribir
 
@@ -200,9 +200,8 @@ if (carritoNav) {
     carritoNav.classList.remove("display"); // Mostrar carrito a clientes y visitantes
   }
 }
-/* ----------------------------------------------------------------------------------------------- */
-// LOGICA DEL SELECTOR DE ORDENAMIENTO
-/* ----------------------------------------------------------------------------------------------- */
+/* ----------------------------------------LOGICA DEL SELECTOR DE ORDENAMIENTO------------------------------------------------------- */
+
 if (selectOrdenamiento) {
   selectOrdenamiento.addEventListener("change", () => {
     const opcionSeleccionada = selectOrdenamiento.value;
@@ -211,29 +210,41 @@ if (selectOrdenamiento) {
     if (productosActuales.length === 0 || opcionSeleccionada === "default")
       return;
 
+    let listaAOrdenar = [...productosActuales];
+    if (inputBuscar && inputBuscar.value !== "") {
+      inputBuscar.value = ""; // Limpiar buscador
+      if (categoriaActiva.startsWith("Búsqueda: ")) {
+        categoriaActiva = "Todas las categorías";
+      }
+      // Re-filtrar por categoría activa (sin el texto del buscador)
+      listaAOrdenar = allProducts.filter((p) => 
+        categoriaActiva === "Todas las categorías" || 
+        (p.categoria && p.categoria.nombre === categoriaActiva)
+      );
+    }
+
     // Evaluamos las opciones cargadas en tu HTML
     if (opcionSeleccionada === "nomb-asc") {
       // Ordenamiento alfabético A-Z
-      productosActuales.sort((a, b) => a.nombre.localeCompare(b.nombre));
+      listaAOrdenar.sort((a, b) => a.nombre.localeCompare(b.nombre));
     } else if (opcionSeleccionada === "nomb-desc") {
       // Ordenamiento alfabético Z-A
-      productosActuales.sort((a, b) => b.nombre.localeCompare(a.nombre));
+      listaAOrdenar.sort((a, b) => b.nombre.localeCompare(a.nombre));
     } else if (opcionSeleccionada === "prec-asc") {
       // Ordenamiento numérico: de menor precio a mayor precio
-      productosActuales.sort((a, b) => a.precio - b.precio);
+      listaAOrdenar.sort((a, b) => a.precio - b.precio);
     } else if (opcionSeleccionada === "prec-desc") {
       // Ordenamiento numérico: de mayor precio a menor precio
-      productosActuales.sort((a, b) => b.precio - a.precio);
+      listaAOrdenar.sort((a, b) => b.precio - a.precio);
     }
 
     // Volvemos a mostrar las tarjetas en la pantalla usando la lista ya ordenada
-    cargarProductos(productosActuales);
+    cargarProductos(listaAOrdenar);
   });
 }
 
-/* ----------------------------------------------------------------------------------------------- */
-// INICIALIZACIÓN DE LA APLICACIÓN
-/* ----------------------------------------------------------------------------------------------- */
+/* ----------------------------------------INICIALIZACIÓN DE LA APLICACIÓN------------------------------------------------------- */
+
 async function inicializarApp() {
   allProducts = getProductsCatalog();
   categories = getCategoriesCatalog();

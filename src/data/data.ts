@@ -18,7 +18,7 @@ export async function getProducts(): Promise<Product[]> {
   }
 }
 
-// Obtiene todas las categorías de forma asíncrona usando fetch
+// Obtiene todas las categorías
 export async function getCategories(): Promise<Categoria[]> {
   try {
     const response = await fetch("/data/categorias.json");
@@ -33,7 +33,7 @@ export async function getCategories(): Promise<Categoria[]> {
   }
 }
 
-// Obtiene todos los pedidos de forma asíncrona usando fetch
+// Obtiene todos los pedidos
 export async function getPedidos(): Promise<Pedido[]> {
   try {
     const response = await fetch("/data/pedidos.json");
@@ -48,7 +48,7 @@ export async function getPedidos(): Promise<Pedido[]> {
   }
 }
 
-// Obtiene todos los usuarios de forma asíncrona usando fetch
+// Obtiene todos los usuarios
 export async function getUsuarios(): Promise<Usuario[]> {
   try {
     const response = await fetch("/data/usuarios.json");

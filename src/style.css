@@ -33,8 +33,8 @@ body {
   padding: 1rem 4rem;
   background-color: var(
     --color-blanco
-  ); /* Del PDF: Fondo blanco para las pantallas de la tienda */
-  color: var(--color-texto); /* Del PDF: Texto oscuro */
+  ); 
+  color: var(--color-texto); 
   border-bottom: 1px solid var(--color-borde);
 }
 .nav__list {
@@ -45,7 +45,7 @@ body {
   list-style: none;
 }
 .nav__link {
-  color: var(--color-texto); /* Del PDF: Enlaces oscuros */
+  color: var(--color-texto); 
   text-decoration: none;
   font-weight: 600;
   display: flex;
@@ -70,7 +70,7 @@ body {
   font-weight: 700;
   color: var(
     --color-primario
-  ); /* Del PDF: El texto del logo destaca en naranja */
+  ); 
   font-size: 1.5rem;
 }
 .display{
@@ -129,4 +129,19 @@ body {
   margin: 0 15px;
   font-weight: bold;
   font-size: 1rem;
+}
+
+/* --- RESPONSIVE MEDIA QUERIES (GLOBAL HEADER) --- */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    padding: 1rem;
+    gap: 15px;
+    text-align: center;
+  }
+  .nav__list {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+  }
 }

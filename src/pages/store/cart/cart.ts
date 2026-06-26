@@ -290,6 +290,7 @@ function cargarItems() {
       article.remove();
       costoTotal -= producto.precio * cantidad;
       mostrarTotal();
+      actualizarContadorCarrito();
 
       // Si después de borrar no quedan más artículos, mostramos el mensaje de vacío
       if (contenedorCompra.querySelectorAll("article").length === 0) {
@@ -305,6 +306,38 @@ function cargarItems() {
   const user = getCurrentUser();
   if (user && userName) {
     userName.textContent = `${user.nombre} ${user.apellido}`;
+  }
+
+  // Controlar accesos de navegación según el rol
+  const dashboardNav = document.querySelector(
+    ".dashboard-nav",
+  ) as HTMLElement | null;
+  if (dashboardNav) {
+    if (user && user.rol === "ADMIN") {
+      dashboardNav.classList.remove("display"); // Mostrar a ADMIN
+    } else {
+      dashboardNav.classList.add("display"); // Ocultar a los demás
+    }
+  }
+
+  const pedidosNav = document.querySelector(
+    ".pedidos-nav",
+  ) as HTMLElement | null;
+  if (pedidosNav) {
+    if (user && user.rol === "ADMIN") {
+      pedidosNav.classList.add("display"); 
+    } else {
+      pedidosNav.classList.remove("display");
+    }
+  }
+
+  const carritoNav = document.querySelector(".carrito-nav") as HTMLElement | null;
+  if (carritoNav) {
+    if (user && user.rol === "ADMIN") {
+      carritoNav.classList.add("display"); // Ocultar carrito al administrador
+    } else {
+      carritoNav.classList.remove("display"); // Mostrar carrito a clientes y visitantes
+    }
   }
 
   const mostrarMensajeVacio = () => {
@@ -337,6 +370,7 @@ function cargarItems() {
     costoTotal = 0;
     mostrarTotal();
     mostrarMensajeVacio();
+    actualizarContadorCarrito();
   });
 }
 

@@ -51,7 +51,7 @@ form?.addEventListener("submit", (e: SubmitEvent) => {
     celular: "",
     rol: "USUARIO",
     password: valuePassword,
-    loggedIn: true, // Auto-login habilitado
+    loggedIn: true, // Auto-login 
   };
 
   // Guardar en la lista de usuarios

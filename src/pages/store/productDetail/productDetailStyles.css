@@ -14,7 +14,7 @@
   flex-direction: row; /*Fuerza que estén lado a lado */
   align-items: flex-start;
   gap: 40px; /* Separación entre foto y texto */
-  max-width: 950px; /* Evita que se estire demasiado en pantallas gigantes */
+  max-width: 950px; /* Evita que se estire demasiado en pantallas grandes */
   width: 100%;
 }
 

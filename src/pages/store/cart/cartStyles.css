@@ -73,11 +73,6 @@
   background-color: var(--color-focus);
 }
 
-.resumen__mensaje {
-  font-size: 0.85rem;
-  color: var(--color-gris);
-  text-align: center;
-}
 .desglose-linea {
   display: flex;
   justify-content: space-between;

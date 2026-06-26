@@ -3,7 +3,11 @@ import {
   cerrarSesion,
 } from "../../../utils/helpers";
 import type { Pedido } from "../../../types/pedido";
-import { getOrders, getCurrentUser, saveOrders } from "../../../utils/localStorage";
+import {
+  getOrders,
+  getCurrentUser,
+  saveOrders,
+} from "../../../utils/localStorage";
 import { checkAuhtUser } from "../../../utils/utilsLogin/auth";
 import { getPedidos } from "../../../data/data";
 
@@ -142,7 +146,6 @@ function abrirModalDetalle(pedido: Pedido) {
   );
   let envio = 500;
 
-  
   if (modalDireccion)
     modalDireccion.textContent = pedido.direccion || "Privet Drive 4";
   if (modalTelefono)
@@ -203,7 +206,7 @@ async function inicializarApp() {
   // Filtrar pedidos por el ID del usuario en sesión
   if (user) {
     const pedidosUsuario = pedidos.filter(
-      (p) => p.usuarioDto && Number(p.usuarioDto.id) === Number(user.id)
+      (p) => p.usuarioDto && Number(p.usuarioDto.id) === Number(user.id),
     );
 
     // Ordenar pedidos del más nuevo al más viejo
