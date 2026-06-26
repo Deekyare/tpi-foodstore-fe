@@ -2,6 +2,14 @@
 
 Proyecto **Food Store**, desarrollado como Trabajo Integrador Final para la materia Programación 3.
 
+### Datos del Alumno
+
+- **Alumna:** Giardini Silvia
+- **Comisión:** 07
+- **Materia:** Programación III
+- **Carrera:** Tecnicatura Universitaria en Programación a Distancia
+- **Link al video de YouTube:** https://youtu.be/xTfKCXWCAKM
+
 ## Descripción
 
 La aplicación es un sistema web completo de tienda de alimentos que permite la gestión de pedidos tanto desde la perspectiva del cliente como del administrador. Cuenta con autenticación de usuarios, protección de rutas basadas en roles (`USUARIO` y `ADMIN`), catálogo dinámico de productos, carrito de compras interactivo y un panel de administración.
@@ -79,5 +87,3 @@ La aplicación es un sistema web completo de tienda de alimentos que permite la 
    Abre tu navegador en `http://localhost:5173`.
 
 ---
-
-**Desarrollado por:** Silvia Giardini - TFI - Programación III - 2026
