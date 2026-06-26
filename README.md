@@ -64,6 +64,13 @@ La aplicación es un sistema web completo de tienda de alimentos que permite la 
 
 ---
 
+**Credenciales de prueba para cada rol**
+
+| Rol     | Email            | Contraseña |
+| ------- | ---------------- | ---------- |
+| Usuario | cliente@food.com | cliente123 |
+| Admin   | admin@admin.com  | 123456     |
+
 ## Instalación y Ejecución
 
 1. **Instalar dependencias**:
